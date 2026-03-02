@@ -1,9 +1,23 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-*{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
 
+@layer base {
+  html, body {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+  }
+  body {
+    @apply bg-background text-text font-sans antialiased;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    width: 100%;
+  }
+}
+
+* {
+  box-sizing: border-box;
 }

@@ -1,156 +1,91 @@
-import { FaMapMarkerAlt, FaLinkedinIn, FaDiscord, FaInstagram, FaFacebookF } from "react-icons/fa";
+import { FaMapMarkerAlt, FaLinkedinIn } from "react-icons/fa";
 import { FaRegMessage } from "react-icons/fa6";
 import { VscGithub } from "react-icons/vsc";
 import { MdPhoneIphone } from "react-icons/md";
-import { TypeAnimation } from 'react-type-animation';
 
-const SocialIcons = ({ isMobile }) => {
-  const iconSize = isMobile ? "w-[30px] h-[30px]" : "w-[50px] h-[50px]";
-
+const SocialIcons = () => {
   const socialLinks = [
-    {
-      href: "https://github.com/GustavoBOG",
-      icon: VscGithub
-    },
-    {
-      href: "https://www.linkedin.com/in/gustavo-bolivar/",
-      icon: FaLinkedinIn
-    },
-    {
-      href: "https://discord.com/users/grounda.",
-      icon: FaDiscord
-    },
-    {
-      href: "https://www.instagram.com/gusta_bolivar/",
-      icon: FaInstagram
-    },
-    {
-      href: "https://www.facebook.com/gustavo.bolivar.16",
-      icon: FaFacebookF
-    }
+    { href: "https://github.com/GustavoBOG", icon: VscGithub },
+    { href: "https://www.linkedin.com/in/gustavo-bolivar/", icon: FaLinkedinIn }
   ];
 
   return (
-
-    <div className={`
-      ${isMobile
-        ? "flex lg:hidden flex-col absolute right-[-10px] top-1/2 transform -translate-y-1/2 space-y-4"
-        : "hidden lg:flex justify-center mt-8 gap-5"
-      } text-text
-    `}>
+    <div className="flex gap-4 mt-8 pt-2">
       {socialLinks.map((social, index) => (
         <a
           key={index}
           href={social.href}
           target="_blank"
           rel="noopener noreferrer"
-          className="bg-primario text-text rounded-2xl p-3 hover:bg-vividBlue hover:scale-125 transition-all"
+          className="bg-[#E04E0B] text-white w-10 h-10 rounded-lg hover:bg-white hover:text-[#E04E0B] transition-colors flex items-center justify-center shadow-lg"
         >
-          <social.icon className={iconSize} />
+          <social.icon className="w-5 h-5" />
         </a>
       ))}
     </div>
   );
 };
 
+const ContactInfo = () => (
+  <div className="space-y-4 mt-6 text-[#A0A0A0]">
+    <div className="flex items-center gap-4">
+      <FaMapMarkerAlt className="text-[#E04E0B] w-5 h-5 flex-shrink-0" />
+      <span className="text-sm tracking-wide">Madrid, España</span>
+    </div>
+    <div className="flex items-center gap-4">
+      <MdPhoneIphone className="text-[#E04E0B] w-5 h-5 flex-shrink-0" />
+      <span className="text-sm tracking-wide">+34 603 534 213</span>
+    </div>
+    <div className="flex items-center gap-4">
+      <FaRegMessage className="text-[#E04E0B] w-5 h-5 flex-shrink-0" />
+      <span className="text-sm tracking-wide">gbolivar.dev@gmail.com</span>
+    </div>
+  </div>
+);
+
 const Home = () => {
   return (
-    <section className="w-full min-h-[calc(100vh-80px)] flex items-center justify-center bg-background py-4">
-      <div className="flex flex-col lg:flex-row items-center justify-center gap-8 w-full max-w-7xl mx-auto px-2 relative">
+    <section className="relative flex items-center min-h-[calc(100vh-100px)] py-12">
+      
+      {/* Decorative Glow behind image */}
+      <div className="absolute left-1/4 top-1/2 w-[600px] h-[600px] bg-[#E04E0B]/5 rounded-full blur-[100px] pointer-events-none -translate-x-1/2 -translate-y-1/2" />
 
-        {/* Contenido móvil - Texto */}
-        <div className="text-center lg:hidden w-full max-w-md">
-          <span className="inline-block bg-primario hover:bg-vividBlue text-text text-h4 px-8 py-1 rounded-full rounded-es-none font-roboto">
-            Hola a todos!
-          </span>
-          <h1 className="text-text text-h2 font-roboto mt-3">Yo soy Gustavo</h1>
-          <div className="text-h4 min-h-[30px]">
-            <TypeAnimation
-              sequence={[
-                'Desarrollador Full Stack.',
-                1500,
-                'Entusiasta del diseño web.',
-                1500,
-                'Convirtiendo ideas en realidad.',
-                1500,
-                'Resolviendo problemas con código.',
-                1500,
-              ]}
-              wrapper="span"
-              speed={50}
-              repeat={Infinity}
-              className="text-primario"
-            />
-          </div>
-        </div>
+      {/* Main Container */}
+      <div className="w-full h-full relative z-10">
+        
+        {/* Structural Lines localized to this container */}
+        <div className="absolute left-0 top-0 bottom-0 w-[2px] bg-[#E04E0B] hidden lg:block z-0" />
+        <div className="absolute left-0 right-0 top-[20px] h-[1px] bg-gradient-to-r from-[#E04E0B] to-transparent hidden lg:block z-0" />
 
-        {/* Contenedor de imagen y redes sociales */}
-        <div className="relative flex flex-col-reverse lg:flex-row items-center -ml-10 sm:ml-0">
-
-          {/* Redes Sociales Móvil */}
-          <SocialIcons isMobile={true} />
-
-          {/* Imagen de Perfil */}
-          <div className="w-full max-w-sm lg:max-w-xl flex-shrink-0 select-none -mt-10 ml-0 sm:ml-4">
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-8 w-full h-full pl-0 lg:pl-16">
+          
+          {/* Profile Image Column */}
+          <div className="relative w-[300px] md:w-[450px] lg:w-[500px] xl:w-[600px] flex-shrink-0 flex justify-center lg:justify-start">
             <img
-              src="/images/profile2.png"
-              alt="Gustavo"
-              className="w-full h-auto object-contain cursor-default"
+              src="/images/profile2.png" 
+              alt="Gustavo Bolivar"
+              className="w-full h-auto object-contain filter drop-shadow-xl"
             />
           </div>
-        </div>
 
-        {/* Información de Usuario */}
-        <div className="text-center lg:text-left w-full max-w-md">
+          {/* Text Content Column */}
+          <div className="text-left flex flex-col justify-center w-full lg:w-1/2 max-w-xl">
+            <h1 className="text-[#E04E0B] text-4xl md:text-5xl lg:text-[56px] font-black uppercase tracking-tight leading-none mb-2">
+              GUSTAVO BOLIVAR
+            </h1>
+            <p className="text-white text-lg md:text-xl font-bold tracking-wide">
+              Desarrollador y Diseñador Web
+            </p>
 
-          {/* Contenido escritorio - Texto */}
-          <div className="hidden lg:block">
-            <span className="inline-block bg-primario hover:bg-vividBlue text-text text-h4 px-8 py-3 rounded-full rounded-es-none font-roboto">
-              Hola a todos!
-            </span>
-            <h1 className="text-text text-h2 font-roboto mt-3">Yo soy Gustavo</h1>
-            <div className="text-h4 min-h-[30px]">
-              <TypeAnimation
-                sequence={[
-                  'Desarrollador Full Stack.',
-                  1500,
-                  'Entusiasta del diseño web.',
-                  1500,
-                  'Convirtiendo ideas en realidad.',
-                  1500,
-                  'Resolviendo problemas con código.',
-                  1500,
-                ]}
-                wrapper="span"
-                speed={50}
-                repeat={Infinity}
-                className="text-primario"
-              />
-            </div>
+            <ContactInfo />
+            
+            <SocialIcons />
           </div>
 
-          {/* Información de Contacto */}
-          <div className="mt-0 space-y-2 text-text text-h6">
-            <p className="flex items-center justify-center lg:justify-start gap-4 py-1">
-              <FaMapMarkerAlt className="w-[30px] h-[30px]" />
-              Madrid , España
-            </p>
-            <p className="flex items-center justify-center lg:justify-start gap-4 py-1">
-              <MdPhoneIphone className="w-[30px] h-[30px]" />
-              +34 603 534 213
-            </p>
-            <p className="flex items-center justify-center lg:justify-start gap-4 py-1">
-              <FaRegMessage className="w-[30px] h-[30px]" />
-              gbolivar.dev@gmail.com
-            </p>
-          </div>
-
-          {/* Redes Sociales Escritorio */}
-          <SocialIcons isMobile={false} />
         </div>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
