@@ -18,7 +18,7 @@ function App() {
           <Projects />
         </section>
 
-        <section id="stack" className="mt-24">
+        <section id="stack" className="mt-2">
           <Skills />
         </section>
 

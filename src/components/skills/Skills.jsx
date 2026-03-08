@@ -1,66 +1,71 @@
 import React from 'react';
 import { FaRocket } from "react-icons/fa";
+import { 
+  SiHtml5, SiCss3, SiJavascript, SiReact, SiNodedotjs, 
+  SiNextdotjs, SiGit, SiPostman, SiFigma, SiMysql 
+} from "react-icons/si";
+
+const AntigravityIcon = (props) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" {...props}>
+    <path fill="currentColor" d="M12.025 2q2.025 0 3.163 1.525T17.125 7q.65 1.575 1.25 3.5t1.275 3.875q.65 1.875 1.425 3.525t1.8 2.825q.2.225.175.525t-.225.525t-.475.25t-.55-.175q-1.975-1.55-3.25-3.463t-2.575-3.337q-.85-.95-1.812-1.5T12.025 13t-2.137.55t-1.813 1.5q-1.3 1.425-2.575 3.338T2.25 21.85q-.275.2-.55.175t-.475-.25T1 21.25t.175-.525Q2.2 19.55 2.975 17.9T4.4 14.375q.675-1.95 1.275-3.875T6.925 7q.8-1.95 1.938-3.475T12.025 2"/>
+  </svg>
+);
 
 const Skills = () => {
   const allSkills = [
-    { name: 'HTML5', icon: '/images/skills/html5.png' },
-    { name: 'CSS3', icon: '/images/skills/css.png' },
-    { name: 'JavaScript', icon: '/images/skills/js.png' },
-    { name: 'React', icon: '/images/skills/react.png' },
-    { name: 'Node.js', icon: '/images/skills/node.png' },
-    { name: 'Next.js', icon: '/images/skills/next.png' },  // Use fallback or actual image if exists
-    { name: 'MySQL', icon: '/images/skills/mySQL.png' },
-    { name: 'Git', icon: '/images/skills/github.png' },
+    { name: 'HTML', icon: SiHtml5 },
+    { name: 'CSS', icon: SiCss3 },
+    { name: 'JavaScript', icon: SiJavascript },
+    { name: 'React', icon: SiReact },
+    { name: 'Node.js', icon: SiNodedotjs },
+    { name: 'Next.js', icon: SiNextdotjs },
+    { name: 'Git', icon: SiGit },
+    { name: 'Postman', icon: SiPostman },
+    { name: 'Antigravity', icon: AntigravityIcon },
+    { name: 'Figma', icon: SiFigma },
+    { name: 'MySQL', icon: SiMysql },
   ];
 
+  // Duplicamos el array múltiples veces para que el carrusel nunca se quede sin contenido antes de reiniciar el bucle
+  const marqueeSkills = [...allSkills, ...allSkills, ...allSkills, ...allSkills];
+
   return (
-    <section className="w-full py-16 relative">
-      {/* Línea divisoria superior de sección con degradado completo */}
-      <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-[#FF4D00] to-transparent"></div>
-      
-      {/* Línea divisoria intermedia naranja corta (estilo viñeta) */}
-      <div className="absolute top-0 left-[10%] w-[1px] h-24 bg-gradient-to-b from-[#FF4D00] to-transparent"></div>
-
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 relative pt-8">
+    <section className="w-full pb-16 relative">
+      {/* Título tipo Header Full-Width */}
+      <div className="w-[100vw] relative left-1/2 -translate-x-1/2 py-6 mb-12 bg-[#050505]/30">
+        <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-[#E04E0B] via-[#E04E0B]/80 to-transparent"></div>
         
-        {/* Título de Sección */}
-        <div className="flex items-center gap-4 mb-4">
-          <FaRocket className="text-accent text-3xl" />
-          <h2 className="text-white text-3xl font-bold tracking-wide">Stack Tecnológico</h2>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center gap-4">
+          <FaRocket className="text-[#E04E0B] text-3xl md:text-4xl" />
+          <h2 className="text-white text-3xl md:text-4xl font-bold tracking-wide">Stack Tecnológico</h2>
         </div>
 
-        <h3 className="text-white text-lg font-bold mb-8 mt-8">Tecnologías y Herramientas</h3>
+        <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-[#E04E0B] via-[#E04E0B]/80 to-transparent"></div>
+      </div>
 
-        {/* Grid de Tecnologías */}
-        <div className="flex flex-wrap justify-center sm:justify-between items-center gap-6 sm:gap-4 w-full mt-12 bg-[#1A1A1A] py-8 px-6 rounded-2xl relative">
-          {/* Borde sutil en el contenedor del grid */}
-          <div className="absolute inset-0 border border-[#FF4D00]/20 rounded-2xl pointer-events-none"></div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 relative">
+        <div className="inline-block border-b-2 border-dotted border-[#E04E0B]/50 pb-1 mb-12">
+          <h3 className="text-white text-lg font-bold">Tecnologías y Herramientas</h3>
+        </div>
 
-          {allSkills.map((skill, index) => (
-            <div 
-              key={index} 
-              className="flex items-center gap-2 grayscale hover:grayscale-0 opacity-70 hover:opacity-100 transition-all duration-300 transform hover:scale-110 cursor-pointer"
-            >
-              <div className="w-8 h-8 md:w-10 md:h-10 flex items-center justify-center">
-                 <img 
-                   src={skill.icon} 
-                   alt={`Logo de ${skill.name}`}
-                   className="max-w-full max-h-full object-contain"
-                   onError={(e) => {
-                      // Fallback temporal si Next.js no existe
-                      if(skill.name === 'Next.js') {
-                         e.target.src = 'https://cdn.worldvectorlogo.com/logos/next-js.svg';
-                      }
-                   }}
-                 />
+      {/* Carrusel de Tecnologías (Infinite Marquee) - Expandido al ancho total de la pantalla */}
+      <div className="w-[100vw] relative left-1/2 -translate-x-1/2 overflow-hidden py-4">
+          <div className="flex w-max animate-marquee whitespace-nowrap pause-hover">
+            {marqueeSkills.map((skill, index) => (
+              <div 
+                key={index} 
+                className="flex items-center gap-4 mx-8 group cursor-pointer"
+              >
+                <div className="text-[#E04E0B] text-3xl md:text-5xl transition-transform duration-300 group-hover:scale-110">
+                   <skill.icon />
+                </div>
+                <span className="text-white font-bold text-lg md:text-2xl tracking-wide transition-colors group-hover:text-[#E04E0B]">
+                  {skill.name}
+                </span>
               </div>
-              <span className="text-white font-bold text-sm md:text-base hidden sm:block whitespace-nowrap">
-                {skill.name}
-              </span>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
-
       </div>
     </section>
   );

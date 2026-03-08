@@ -17,9 +17,9 @@ const SocialIcons = () => {
           href={social.href}
           target="_blank"
           rel="noopener noreferrer"
-          className="bg-[#E04E0B] text-white w-10 h-10 rounded-lg hover:bg-white hover:text-[#E04E0B] transition-colors flex items-center justify-center shadow-lg"
+          className="bg-[#E04E0B] text-white w-12 h-12 rounded-md hover:bg-white hover:text-[#E04E0B] transition-colors flex items-center justify-center shadow-lg"
         >
-          <social.icon className="w-5 h-5" />
+          <social.icon className="w-6 h-6" />
         </a>
       ))}
     </div>
@@ -46,16 +46,12 @@ const ContactInfo = () => (
 const Home = () => {
   return (
     <section className="relative flex items-center min-h-[calc(100vh-100px)] py-12">
-      
-      {/* Decorative Glow behind image */}
-      <div className="absolute left-1/4 top-1/2 w-[600px] h-[600px] bg-[#E04E0B]/5 rounded-full blur-[100px] pointer-events-none -translate-x-1/2 -translate-y-1/2" />
+
+      {/* Structural Lines moved to section level to touch the header */}
+      <div className="absolute -left-12 -top-2 bottom-0 w-[2px] bg-[#E04E0B] z-10 hidden lg:block" />
 
       {/* Main Container */}
       <div className="w-full h-full relative z-10">
-        
-        {/* Structural Lines localized to this container */}
-        <div className="absolute left-0 top-0 bottom-0 w-[2px] bg-[#E04E0B] hidden lg:block z-0" />
-        <div className="absolute left-0 right-0 top-[20px] h-[1px] bg-gradient-to-r from-[#E04E0B] to-transparent hidden lg:block z-0" />
 
         <div className="flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-8 w-full h-full pl-0 lg:pl-16">
           

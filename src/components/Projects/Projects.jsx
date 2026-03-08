@@ -1,28 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import { FaRegFolder } from "react-icons/fa";
 import { projects } from "../../data/projectsData";
 
 const Projects = () => {
-  const displayProjects = projects.slice(0, 4);
+  const [isExpanded, setIsExpanded] = useState(false);
+  const displayProjects = isExpanded ? projects.slice(0, 4) : projects.slice(0, 2);
 
   return (
-    <section className="w-full py-16 relative">
-      {/* Línea divisoria superior de sección con degradado completo */}
-      <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-[#FF4D00] to-transparent"></div>
-      
-      {/* Línea divisoria intermedia naranja corta (estilo viñeta) */}
-      <div className="absolute top-0 left-[10%] w-[1px] h-24 bg-gradient-to-b from-[#FF4D00] to-transparent"></div>
-
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 relative pt-8">
+    <section className="w-full pb-4 relative">
+      {/* Título tipo Header Full-Width */}
+      <div className="w-[100vw] relative left-1/2 -translate-x-1/2 py-6 mb-12 bg-[#050505]/30">
+        <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-[#E04E0B] via-[#E04E0B]/80 to-transparent"></div>
         
-        {/* Título de Sección con línea debajo */}
-        <div className="mb-12">
-          <div className="flex items-center gap-4 mb-4">
-            <span className="text-accent text-3xl font-mono font-bold">{">_"}</span>
-            <h2 className="text-white text-3xl font-bold tracking-wide">Proyectos y Experiencia</h2>
-          </div>
-          {/* Línea sutil debajo del título si es necesario según diseño, o solo usamos el grid border */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center gap-4">
+          <span className="text-[#E04E0B] text-3xl md:text-4xl font-mono font-bold mt-1">{">_"}</span>
+          <h2 className="text-white text-3xl md:text-4xl font-bold tracking-wide">Proyectos y Experiencia</h2>
         </div>
+
+        <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-[#E04E0B] via-[#E04E0B]/80 to-transparent"></div>
+      </div>
+
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 relative">
 
         {/* Grid de Proyectos */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -47,7 +45,7 @@ const Projects = () => {
                 </p>
 
                 <div className="flex flex-wrap gap-2 mt-auto">
-                  {project.technologies.slice(0, 5).map((tech, index) => (
+                  {project.technologies.slice(0, 7).map((tech, index) => (
                     <span
                       key={index}
                       className="bg-accentDark text-gray-300 text-[10px] font-mono px-3 py-1 rounded-sm border border-orange-500/20"
@@ -65,16 +63,28 @@ const Projects = () => {
           ))}
         </div>
 
-        <div className="flex justify-center mt-12 w-full">
+        <div className="flex justify-center mt-4 w-full">
            <div className="flex flex-col items-center">
-             <button className="text-white flex flex-col items-center gap-2 hover:text-accent transition-colors group">
-               <span className="text-sm font-medium">Ver más</span>
-               <svg className="w-5 h-5 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-               </svg>
-             </button>
-             {/* Divider Line under View More */}
-             <div className="w-screen h-[1px] bg-gradient-to-r from-[#FF4D00] to-transparent mt-8"></div>
+             {projects.length > 2 && (
+               <button 
+                 onClick={() => setIsExpanded(!isExpanded)}
+                 className="text-white flex flex-col items-center gap-2 hover:text-[#E04E0B] transition-colors group"
+               >
+                 <span className="text-sm font-medium">{isExpanded ? "Ver menos" : "Ver más"}</span>
+                <svg 
+                   className={`w-5 h-5 transition-transform duration-300 ${isExpanded ? "" : "animate-bounce"}`} 
+                   fill="none" 
+                   stroke="currentColor" 
+                   viewBox="0 0 24 24"
+                 >
+                   {isExpanded ? (
+                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
+                   ) : (
+                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                   )}
+                 </svg>
+               </button>
+             )}
            </div>
         </div>
 
