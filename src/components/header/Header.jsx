@@ -54,7 +54,10 @@ const Header = () => {
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-center relative">
           <div className="md:hidden absolute left-4">
-             <span className="text-accent font-bold text-lg">GB</span>
+            <span className="font-bold text-lg">
+              <span className="text-white">G</span>
+              <span className="text-accent">B</span>
+            </span>
           </div>
           <nav className="hidden md:flex">
             <ul className="flex space-x-12">
