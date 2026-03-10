@@ -1,6 +1,10 @@
-import React from 'react';
 import { FaAward } from "react-icons/fa";
 
+/**
+ * Componente Certificates
+ * Rejilla de tarjetas que muestran tu información educativa. Formación,
+ * certificaciones obtenidas o bootcamps cursados.
+ */
 const Certificates = () => {
   // Datos alineados con la imagen de diseño
   const formationData = [
@@ -64,39 +68,48 @@ const Certificates = () => {
           <h2 className="text-white text-3xl md:text-4xl font-bold tracking-wide">Formación</h2>
         </div>
 
-        {/* Grid de Formación */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* Grid de Formación Premium */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
           {formationData.map((item) => (
             <div
               key={item.id}
-              className="bg-surface rounded-2xl p-6 border border-gray-800 hover:border-accent group hover:shadow-[0_0_15px_rgba(255,69,0,0.2)] transition-all duration-300 flex flex-col justify-between"
+              className="group relative overflow-hidden bg-[#0A0A0A]/80 backdrop-blur-md rounded-2xl p-8 border border-white/5 transition-all duration-500 hover:border-[#E04E0B]/50 hover:shadow-[0_0_30px_rgba(224,78,11,0.15)] hover:-translate-y-1 flex flex-col justify-between"
             >
-              <div>
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="w-12 h-12 bg-white rounded-md flex items-center justify-center p-1 overflow-hidden">
+              {/* Efecto de resplandor interno en hover */}
+              <div className="absolute inset-0 bg-gradient-to-br from-[#E04E0B]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+              
+              <div className="relative z-10 w-full mb-6">
+                <div className="flex items-start justify-between mb-8">
+                  <div className="w-16 h-16 bg-white border border-white/10 rounded-2xl flex items-center justify-center p-2.5 backdrop-blur-sm group-hover:scale-110 transition-transform duration-500 shadow-lg">
                      <img 
                        src={item.logo} 
                        alt={`Logo de ${item.institution}`} 
-                       className="w-full h-full object-contain"
+                       className="w-full h-full object-contain filter drop-shadow-sm"
                        onError={(e) => {
-                         // Fallback para imágenes no encontradas
                          e.target.src = 'https://via.placeholder.com/48?text=Logo';
                        }}
                      />
                   </div>
-                  <h3 className="text-white text-xl font-bold">
-                    {item.institution}
-                  </h3>
+                  <span className="px-3 py-1 font-mono text-xs font-medium tracking-wider rounded-full bg-white/5 border border-white/10 text-gray-400 group-hover:text-[#E04E0B] group-hover:bg-[#E04E0B]/10 group-hover:border-[#E04E0B]/30 transition-all duration-300">
+                    {item.year}
+                  </span>
                 </div>
                 
-                <p className="text-gray-300 text-sm md:text-base">
-                  {item.title} ({item.year})
+                <h3 className="text-white text-xl md:text-2xl font-bold mb-3 tracking-tight group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-gray-400 transition-all duration-300">
+                  {item.institution}
+                </h3>
+                
+                <p className="text-gray-400 text-sm md:text-base leading-relaxed font-light">
+                  {item.title}
                 </p>
               </div>
 
-              <div className="mt-6">
-                <button className="bg-[#2A2A2A] text-gray-300 hover:text-white hover:bg-accent border border-gray-700 hover:border-accent transition-colors text-xs font-semibold px-4 py-1.5 rounded-md">
-                  Ver
+              <div className="mt-4 relative z-10 border-t border-white/5 pt-6">
+                <button className="flex items-center gap-3 text-sm font-semibold text-gray-400 group-hover:text-[#E04E0B] transition-colors duration-300">
+                  <span className="tracking-wide uppercase text-xs">Ver credencial</span>
+                  <svg className="w-4 h-4 transform group-hover:translate-x-1.5 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  </svg>
                 </button>
               </div>
             </div>

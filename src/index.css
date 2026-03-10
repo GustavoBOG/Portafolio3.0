@@ -1,33 +1,77 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
-  html, body {
+  html,
+  body {
     scroll-behavior: smooth;
     overflow-x: hidden;
   }
   body {
-    @apply bg-background text-text font-sans antialiased;
+    @apply font-sans antialiased;
+    color: #ffffff;
+    background-color: #050505;
+    background-image:
+      radial-gradient(
+        circle at 15% 50%,
+        rgba(224, 78, 11, 0.08),
+        transparent 25%
+      ),
+      radial-gradient(
+        circle at 85% 30%,
+        rgba(224, 78, 11, 0.05),
+        transparent 25%
+      );
+    background-attachment: fixed;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     width: 100%;
   }
+
+  /* Custom Scrollbar Premium */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #050505;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #1a1a1a;
+    border-radius: 4px;
+    border: 1px solid #333;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #e04e0b;
+    border-color: #e04e0b;
+  }
 }
 
 @layer utilities {
   @keyframes marquee {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
   }
   .animate-marquee {
     animation: marquee 30s linear infinite;
   }
   .pause-hover:hover {
     animation-play-state: paused;
+  }
+
+  /* Text gradients for premium headings */
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-200 to-gray-500;
+  }
+  .text-gradient-accent {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-[#E04E0B] to-[#FF8C00];
   }
 }
 

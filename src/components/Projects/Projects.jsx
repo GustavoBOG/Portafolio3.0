@@ -2,8 +2,16 @@ import React, { useState } from "react";
 import { FaRegFolder } from "react-icons/fa";
 import { projects } from "../../data/projectsData";
 
+/**
+ * Componente Projects
+ * Renderiza la lista de proyectos desde un origen de datos estático (`projectsData.js`).
+ * Permite mostrar todos o una vista resumida mediante un botón "Ver más".
+ */
 const Projects = () => {
+  // Estado para controlar si vemos 2 o hasta 4 proyectos en el listado inicial
   const [isExpanded, setIsExpanded] = useState(false);
+  
+  // Limita los proyectos en función del estado isExpanded
   const displayProjects = isExpanded ? projects.slice(0, 4) : projects.slice(0, 2);
 
   return (

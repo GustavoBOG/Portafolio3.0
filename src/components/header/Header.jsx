@@ -2,6 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-scroll';
 import { FiMenu, FiX } from "react-icons/fi";
 
+/**
+ * Componente Header (Barra de Navegación)
+ * Navegación fija tipo "Sticky Navbar". Contiene el menú desktop y su contraparte
+ * responsive para móvil con menú lateral (drawer) y desenfoques visuales.
+ */
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
