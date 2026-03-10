@@ -9,7 +9,7 @@ const Certificates = () => {
       institution: 'Big School',
       logo: '/images/certificates/bslogo.png',
       title: 'Desarrollo con IA (Especialización)',
-      year: '2025'
+      year: '2026'
     },
     {
       id: 2,
@@ -42,7 +42,7 @@ const Certificates = () => {
     {
       id: 6,
       institution: 'U.E Colegio Tirso De Molina',
-      logo: '/images/profile2.png', // Fallback, no hay logo en assets aparentemente
+      logo: '/images/logoTirso.png', 
       title: 'Bachiller en Ciencias l',
       year: '2013'
     }

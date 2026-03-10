@@ -20,7 +20,7 @@ const AboutMe = () => {
         <div className="flex flex-col lg:flex-row items-center relative">
           
           {/* Tarjeta de Texto Izquierda */}
-          <div className="w-full lg:w-3/4 xl:w-8/12 relative z-10 lg:-ml-4">
+          <div className="w-full lg:w-3/4 xl:w-8/12 relative z-30 lg:-ml-4">
             <div className="bg-[#0b0b0b]/90 backdrop-blur-sm rounded-[32px] p-8 md:p-12 border border-[#E04E0B]/60 shadow-[0_0_30px_rgba(224,78,11,0.15)] transition-all hover:border-[#E04E0B] hover:shadow-[0_0_40px_rgba(224,78,11,0.25)]">
               
               <h3 className="text-white text-2xl md:text-3xl font-bold mb-8">
@@ -29,27 +29,17 @@ const AboutMe = () => {
               
               <div className="space-y-4 text-gray-300 text-sm md:text-base leading-relaxed font-light">
                 <p>
-                  Hasta hace poco, llevaba una vida como la de cualquier otra persona, con hobbies y aspiraciones.
-                  <br className="hidden md:block"/>
-                  Seguí el camino tradicional: estudié, busqué trabajo y me adapté a lo que se esperaba...
-                  <br className="hidden md:block"/>
-                  Pero un día decidí tomar un giro diferente y diseñar mi propio camino.
-                  <br className="hidden md:block"/>
-                  Ahora, me he propuesto desarrollar y aprovechar al máximo todas mis habilidades en el mundo de la tecnología.
+                  Soy un Full-Stack Developer Jr. especializado en JavaScript (React, Node.js, Express).
                 </p>
+                <p>Apasionado por construir productos donde diseño, experiencia de usuario y desarrollo trabajen juntos.</p>
+                <p>Trabajo con una metodología basada en prototipar antes de programar, lo que me permite transformar ideas y diseños en aplicaciones funcionales sin perder la visión original del producto.</p>
                 
-                <p className="font-bold text-white pt-2">
-                  ¿Y adivina qué?
-                </p>
-                
-                <p>
-                  El resultado ha sido increíblemente satisfactorio y gratificante.
+                <p className="font-bold text-gray-300 text-sm md:text-base leading-relaxed font-light pt-4">
+                  Entusiasta de la Inteligencia Artificial
                   <br className="hidden md:block"/>
-                  Me he convertido en un full stack developer motivado y comprometido a seguir creciendo.
+                  Alta adaptabilidad a nuevas tecnologías y entornos
                   <br className="hidden md:block"/>
-                  Estoy decidido a convertirme en uno de los mejores en este campo, disfrutando cada
-                  <br className="hidden md:block"/>
-                  paso del proceso.
+                  Fuerte enfoque en trabajo en equipo y colaboración
                 </p>
               </div>
             </div>
@@ -58,7 +48,7 @@ const AboutMe = () => {
           {/* Imagen Robot Derecha */}
           
           {/* Version Desktop: Robot que sobresale por la derecha */}
-          <div className="hidden lg:block absolute right-[-20%] xl:right-[-16.2%] top-1/2 -translate-y-[55%] z-20 pointer-events-none w-[500px] xl:w-[600px]">
+          <div className="hidden lg:block absolute right-[-20%] xl:right-[-15.8%] top-1/2 -translate-y-[55%] z-20 pointer-events-none w-[500px] xl:w-[600px]">
             <img
               src="/images/robot2.png"
               alt="Robot 3D Saludando"
