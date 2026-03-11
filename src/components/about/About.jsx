@@ -24,10 +24,10 @@ const AboutMe = () => {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 relative">
         {/* Use flex-col-reverse on mobile so the robot is above the card, but maintain flex-row on desktop */}
-        <div className="flex flex-col-reverse lg:flex-row items-center relative">
+        <div className="flex flex-col-reverse min-[1177px]:flex-row items-center relative">
           
           {/* Tarjeta de Texto Izquierda */}
-          <div className="w-full lg:w-3/4 xl:w-8/12 relative z-30 lg:-ml-4 group">
+          <div className="w-full min-[1177px]:w-3/4 xl:w-8/12 relative z-30 min-[1177px]:-ml-4 group">
             {/* Glowing background blob */}
             <div className="absolute inset-0 bg-[#E04E0B]/5 blur-[80px] rounded-[32px] pointer-events-none group-hover:bg-[#E04E0B]/10 transition-colors duration-700"></div>
 
@@ -79,7 +79,7 @@ const AboutMe = () => {
           {/* Imagen Robot Derecha */}
           
           {/* Version Desktop: Robot que sobresale por la derecha */}
-          <div className="hidden lg:block absolute right-[-20%] xl:right-[-15.8%] top-1/2 -translate-y-[55%] z-20 pointer-events-none w-[500px] xl:w-[600px]">
+          <div className="hidden min-[1177px]:block absolute right-[-20%] xl:right-[-15.8%] top-1/2 -translate-y-[55%] z-20 pointer-events-none w-[500px] xl:w-[600px]">
             <img
               src="/images/robot2.png"
               alt="Robot 3D Saludando"
@@ -88,7 +88,7 @@ const AboutMe = () => {
           </div>
 
           {/* Version Mobile/Tablet: Robot arriba de la tarjeta y pegado a la izquierda */}
-          <div className="block lg:hidden w-[120%] -ml-[10%] max-w-[400px] sm:-ml-[5%] relative z-20 pointer-events-none mb-[-2rem]">
+          <div className="block min-[1177px]:hidden self-start ml-[calc(-50vw+50%)] w-[85vw] max-w-[400px] relative z-20 pointer-events-none mb-[-2rem]">
             <img
               src="/images/robot2.png"
               alt="Robot 3D Saludando"
