@@ -107,6 +107,8 @@ const Home = () => {
             <img
               src="/images/profile2.png" 
               alt="Gustavo Bolivar"
+              fetchpriority="high"
+              decoding="async"
               className="w-full h-auto object-contain filter drop-shadow-[0_0_20px_rgba(224,78,11,0.2)] relative z-10 group-hover:scale-105 group-hover:-translate-y-2 transition-transform duration-700 ease-out"
             />
           </div>

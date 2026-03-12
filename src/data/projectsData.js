@@ -61,7 +61,7 @@ export const projects = [
             "Diseño de identidad visual, creación de logotipo y paleta de colores corporativa para la marca.",
         fullDescription:
             "Creación desde cero de la identidad visual para ArtesAna, una marca de productos artesanales. El proyecto incluyó investigación del mercado objetivo, definición de valores de marca, diseño de logotipo en múltiples variantes, selección de tipografía corporativa y construcción de una paleta de colores que refleja la esencia artesanal y natural de la marca.",
-        imageUrl: "/images/placeholder.png",
+        imageUrl: "/images/solrepyma.png", // Reemplaza con la imagen real del proyecto ArtesAna
         technologies: ["Figma"],
         githubUrl: "#",
         pageUrl: "#",

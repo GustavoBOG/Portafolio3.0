@@ -98,6 +98,8 @@ const ProjectDetail = () => {
             src={project.imageUrl}
             alt={`Captura del proyecto ${project.title}`}
             className="w-full object-cover max-h-[520px] rounded-2xl"
+            loading="lazy"
+            decoding="async"
             onError={(e) => {
               e.target.style.display = "none";
             }}

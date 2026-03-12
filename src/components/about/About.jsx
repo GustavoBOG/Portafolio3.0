@@ -83,6 +83,8 @@ const AboutMe = () => {
             <img
               src="/images/robot2.png"
               alt="Robot 3D Saludando"
+              loading="lazy"
+              decoding="async"
               className="w-full h-auto drop-shadow-[0_0_20px_rgba(224,78,11,0.15)] animate-[float_6s_ease-in-out_infinite]"
             />
           </div>
@@ -92,6 +94,8 @@ const AboutMe = () => {
             <img
               src="/images/robot2.png"
               alt="Robot 3D Saludando"
+              loading="lazy"
+              decoding="async"
               className="w-full h-auto object-contain drop-shadow-[0_0_15px_rgba(224,78,11,0.2)] animate-[float_6s_ease-in-out_infinite] origin-left"
             />
           </div>

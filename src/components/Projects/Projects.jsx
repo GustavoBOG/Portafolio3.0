@@ -13,12 +13,22 @@ const Projects = () => {
   const navigate = useNavigate();
   const [isExpanded, setIsExpanded] = useState(false);
 
-  // Limita los proyectos en función del estado isExpanded
-  const displayProjects = isExpanded ? projects.slice(0, 4) : projects.slice(0, 2);
+  // CORRECCIÓN AUDIT: Antes slice(0,4) ocultaba proyectos. Ahora muestra todos.
+  const displayProjects = isExpanded ? projects : projects.slice(0, 2);
 
   // Navegación con transición compartida
   const handleCardClick = (slug) => {
     navigate(`/projects/${slug}`);
+  };
+
+  // Variantes para animación de entrada en scroll (whileInView)
+  const cardVariants = {
+    hidden: { opacity: 0, y: 24 },
+    visible: (i) => ({
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.4, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] },
+    }),
   };
 
   return (
@@ -39,12 +49,17 @@ const Projects = () => {
 
         {/* Grid de Proyectos */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {displayProjects.map((project) => (
+          {displayProjects.map((project, i) => (
             <motion.button
               layoutId={`project-container-${project.slug}`}
               key={project.id}
               onClick={() => handleCardClick(project.slug)}
               whileHover={{ scale: 1.02 }}
+              whileInView="visible"
+              initial="hidden"
+              variants={cardVariants}
+              custom={i}
+              viewport={{ once: true, amount: 0.15 }}
               id={`project-card-${project.slug}`}
               className="text-left bg-background rounded-2xl p-[1px] relative group overflow-hidden cursor-pointer hover:shadow-lg hover:shadow-[#E04E0B]/10 focus:outline-none focus:ring-2 focus:ring-[#E04E0B]/50"
               aria-label={`Ver detalle del proyecto ${project.title}`}
@@ -68,11 +83,13 @@ const Projects = () => {
                   {project.description}
                 </p>
 
+                {/* MEJORA AUDIT: Tooltip en badges de tecnología */}
                 <div className="flex flex-wrap gap-2 mt-auto">
                   {project.technologies.slice(0, 7).map((tech, index) => (
                     <span
                       key={index}
-                      className="bg-accentDark text-gray-300 text-[10px] font-mono px-3 py-1 rounded-sm border border-orange-500/20"
+                      title={tech}
+                      className="bg-accentDark text-gray-300 text-[10px] font-mono px-3 py-1 rounded-sm border border-orange-500/20 hover:border-[#E04E0B]/60 hover:text-white transition-all duration-200 cursor-default"
                     >
                       {tech}
                     </span>
@@ -83,25 +100,25 @@ const Projects = () => {
           ))}
         </div>
 
-        <div className="flex justify-center mt-4 w-full">
-          <div className="flex flex-col items-center">
+        <div className="flex justify-center mt-8 w-full">
+          <div className="flex flex-col items-center gap-1">
             {projects.length > 2 && (
               <button
                 onClick={() => setIsExpanded(!isExpanded)}
-                className="text-white flex flex-col items-center gap-2 hover:text-[#E04E0B] transition-colors group"
+                className="flex flex-col items-center gap-2 px-5 py-2.5 rounded-xl border border-white/10 text-white hover:border-[#E04E0B]/60 hover:text-[#E04E0B] hover:bg-[#E04E0B]/5 transition-all duration-300 group"
               >
-                <span className="text-sm font-medium">{isExpanded ? "Ver menos" : "Ver más"}</span>
+                <span className="text-sm font-medium tracking-wide">
+                  {isExpanded
+                    ? "Ver menos"
+                    : `Ver más proyectos (${projects.length - 2} restantes)`}
+                </span>
                 <svg
-                  className={`w-5 h-5 transition-transform duration-300 ${isExpanded ? "" : "animate-bounce"}`}
+                  className={`w-4 h-4 transition-transform duration-300 ${isExpanded ? "rotate-180" : "animate-bounce"}`}
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
                 >
-                  {isExpanded ? (
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
-                  ) : (
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-                  )}
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </button>
             )}
