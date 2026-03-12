@@ -34,40 +34,39 @@ const Skills = () => {
     { name: 'MySQL', icon: SiMysql },
   ];
 
-  // Duplicamos el array múltiples veces para que el carrusel nunca se quede sin contenido antes de reiniciar el bucle
   const marqueeSkills = [...allSkills, ...allSkills, ...allSkills, ...allSkills];
 
   return (
-    <section className="w-full pb-16 relative">
-      {/* Título tipo Header Full-Width */}
-      <div className="w-[100vw] relative left-1/2 -translate-x-1/2 py-6 mb-12 bg-[#050505]/30">
-        <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-[#E04E0B] via-[#E04E0B]/80 to-transparent"></div>
-        
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center gap-4">
-          <FaRocket className="text-[#E04E0B] text-3xl md:text-4xl" />
-          <h2 className="text-white text-3xl md:text-4xl font-bold tracking-wide">Stack Tecnológico</h2>
+    <section className="w-full relative py-20 overflow-hidden">
+      {/* Título de Sección con Estilo Editorial */}
+      <div className="w-full mb-16 relative">
+        <div className="flex items-center gap-6 mb-4">
+           <div className="h-[2px] w-12 bg-accent"></div>
+           <span className="text-accent font-mono text-xs tracking-[0.3em] uppercase">Tecnologías</span>
         </div>
-
-        <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-[#E04E0B] via-[#E04E0B]/80 to-transparent"></div>
+        <h2 className="text-4xl md:text-5xl font-black text-white uppercase tracking-tight">
+          Stack <br/> 
+          <span className="text-textSecondary/40">Técnico</span>
+        </h2>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 relative">
-        <div className="inline-block border-b-2 border-dotted border-[#E04E0B]/50 pb-1 mb-12">
-          <h3 className="text-white text-lg font-bold">Tecnologías y Herramientas</h3>
-        </div>
+      {/* Contenedor del Marquee con Glassmorphism */}
+      <div className="relative py-10">
+        {/* Sombras laterales para difuminado de entrada/salida */}
+        <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-background to-transparent z-10" />
+        <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-background to-transparent z-10" />
 
-      {/* Carrusel de Tecnologías (Infinite Marquee) - Expandido al ancho total de la pantalla */}
-      <div className="w-[100vw] relative left-1/2 -translate-x-1/2 overflow-hidden py-4">
-          <div className="flex w-max animate-marquee whitespace-nowrap pause-hover">
+        <div className="flex overflow-hidden group">
+          <div className="flex animate-marquee group-hover:pause-animation gap-12 pr-12">
             {marqueeSkills.map((skill, index) => (
-              <div 
-                key={index} 
-                className="flex items-center gap-4 mx-8 group cursor-pointer"
+              <div
+                key={index}
+                className="flex items-center gap-6 glass-panel rounded-2xl px-10 py-6 transition-all duration-500 hover:border-accent/40 hover:bg-accent/5 hover:-translate-y-1 group/card"
               >
-                <div className="text-[#E04E0B] text-3xl md:text-5xl transition-transform duration-300 group-hover:scale-110">
-                   <skill.icon />
+                <div className="text-3xl md:text-4xl text-accent/80 group-hover/card:text-accent group-hover/card:scale-110 transition-all duration-500">
+                  <skill.icon />
                 </div>
-                <span className="text-white font-bold text-lg md:text-2xl tracking-wide transition-colors group-hover:text-[#E04E0B]">
+                <span className="text-lg md:text-xl font-bold tracking-tight text-gray-300 group-hover/card:text-white transition-colors">
                   {skill.name}
                 </span>
               </div>
@@ -75,6 +74,11 @@ const Skills = () => {
           </div>
         </div>
       </div>
+
+      {/* Descripción final sutil */}
+      <p className="text-center text-gray-500 text-sm mt-12 font-light tracking-wide max-w-2xl mx-auto">
+        Explorando constantemente las últimas fronteras del desarrollo para crear soluciones de alto rendimiento con <span className="text-accent">JavaScript</span> y ecosistemas modernos.
+      </p>
     </section>
   );
 };

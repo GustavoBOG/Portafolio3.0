@@ -11,25 +11,23 @@
     overflow-x: hidden;
   }
   body {
-    @apply font-sans antialiased;
-    color: #ffffff;
-    background-color: #050505;
+    @apply font-sans antialiased text-text bg-background tracking-tight;
     background-image:
       radial-gradient(
-        circle at 15% 50%,
-        rgba(224, 78, 11, 0.08),
-        transparent 25%
+        circle at 0% 0%,
+        rgba(224, 78, 11, 0.05),
+        transparent 40%
       ),
       radial-gradient(
-        circle at 85% 30%,
-        rgba(224, 78, 11, 0.05),
-        transparent 25%
+        circle at 100% 100%,
+        rgba(224, 78, 11, 0.03),
+        transparent 40%
       );
     background-attachment: fixed;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    width: 100%;
+    overflow-x: hidden;
   }
 
   /* Custom Scrollbar Premium */
@@ -66,12 +64,21 @@
     animation-play-state: paused;
   }
 
-  /* Text gradients for premium headings */
+  /* Gradientes de texto para encabezados premium */
   .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-200 to-gray-500;
+    @apply bg-clip-text text-transparent bg-gradient-to-br from-white via-white to-white/40;
   }
   .text-gradient-accent {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-[#E04E0B] to-[#FF8C00];
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-[#E04E0B] via-[#FF5F15] to-[#FF8C00];
+  }
+
+  /* Efectos de cristal líquido (Liquid Glass) */
+  .glass-panel {
+    @apply bg-surface/40 backdrop-blur-xl border border-white/5;
+  }
+  
+  .glass-card {
+    @apply bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-md border border-white/10;
   }
 }
 

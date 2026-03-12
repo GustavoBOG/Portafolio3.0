@@ -15,20 +15,19 @@ const ProjectDetail = () => {
   const project = projects.find((p) => p.slug === slug);
 
   const handleBack = () => {
-    // Navigate back to the homepage list
     navigate("/");
   };
 
   if (!project) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center gap-6 text-white">
-        <p className="text-2xl font-bold text-gray-400">Proyecto no encontrado.</p>
+      <div className="min-h-screen flex flex-col items-center justify-center gap-6 text-white text-gradient">
+        <p className="text-2xl font-bold opacity-40">Proyecto no encontrado.</p>
         <button
           onClick={() => navigate("/")}
-          className="flex items-center gap-2 px-4 py-2 border border-white/20 rounded-lg hover:border-[#E04E0B] hover:text-[#E04E0B] transition-all duration-300 text-sm"
+          className="flex items-center gap-2 px-6 py-3 glass-panel rounded-2xl hover:border-accent/50 transition-all duration-300"
         >
           <FaArrowLeft />
-          Volver a proyectos
+          Volver al inicio
         </button>
       </div>
     );
@@ -40,119 +39,103 @@ const ProjectDetail = () => {
   return (
     <motion.div
       layoutId={`project-container-${project.slug}`}
-      initial={{ opacity: 0, borderRadius: "1rem" }}
-      animate={{ opacity: 1, borderRadius: "0rem" }}
-      exit={{ opacity: 0, borderRadius: "1rem" }}
-      transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
       className="fixed inset-0 z-[100] bg-background overflow-y-auto"
     >
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        transition={{ delay: 0.2, duration: 0.3 }}
-      >
-      {/* ── Barra superior full-width (replica el estilo del header de secciones) ── */}
-      <div className="w-full border-b border-[#E04E0B]/30 bg-[#050505]/60 backdrop-blur-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center gap-4">
-          <button
+      <div className="min-h-screen relative flex flex-col">
+        
+        {/* Barra de herramientas flotante superior */}
+        <nav className="sticky top-0 left-0 w-full z-20 py-6 px-6 sm:px-12 flex justify-between items-center pointer-events-none">
+          <motion.button
+            initial={{ x: -20, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ delay: 0.3 }}
             onClick={handleBack}
-            id="btn-back-to-projects"
-            className="flex items-center gap-2 px-4 py-2 border border-white/20 rounded-lg hover:border-[#E04E0B] hover:text-[#E04E0B] transition-all duration-300 text-sm font-medium text-gray-300 group"
+            className="pointer-events-auto flex items-center gap-3 px-5 py-2.5 glass-panel rounded-full hover:border-accent/40 text-textSecondary hover:text-white transition-all duration-300 group"
           >
-            <FaArrowLeft className="transition-transform duration-300 group-hover:-translate-x-1" />
-            Volver a proyectos
-          </button>
-        </div>
+            <FaArrowLeft className="group-hover:-translate-x-1 transition-transform" />
+            <span className="text-[10px] font-black uppercase tracking-widest">Cerrar</span>
+          </motion.button>
+
+          <div className="hidden md:flex items-center gap-3">
+             {project.categories?.map((cat) => (
+               <span key={cat} className="pointer-events-auto px-4 py-1.5 glass-panel rounded-full text-[9px] font-mono font-bold text-accent uppercase tracking-widest">
+                  {cat}
+               </span>
+             ))}
+          </div>
+        </nav>
+
+        {/* Contenido Hero del Proyecto */}
+        <main className="max-w-7xl mx-auto px-6 sm:px-12 py-12 flex-grow w-full">
+           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+              
+              {/* Información (Sticky en Desktop) */}
+              <div className="lg:col-span-5 lg:sticky lg:top-32 space-y-10">
+                 <div>
+                    <h1 className="text-4xl md:text-6xl font-black text-white uppercase tracking-tight leading-[0.9] mb-6">
+                       {project.title}
+                    </h1>
+                    <p className="text-gray-400 text-lg leading-relaxed font-light">
+                       {project.fullDescription || project.description}
+                    </p>
+                 </div>
+
+                 <div className="space-y-4">
+                    <h4 className="text-[10px] font-mono font-black text-gray-500 uppercase tracking-[0.3em]">Tecnologías</h4>
+                    <div className="flex flex-wrap gap-2">
+                       {project.technologies.map((tech, i) => (
+                         <span key={i} className="px-4 py-2 glass-panel rounded-xl text-xs text-gray-300 font-medium">
+                            {tech}
+                         </span>
+                       ))}
+                    </div>
+                 </div>
+
+                 <div className="flex flex-wrap gap-4 pt-8">
+                    {hasDemo && (
+                      <a href={project.pageUrl} target="_blank" rel="noopener noreferrer" 
+                         className="flex items-center gap-3 px-8 py-4 bg-accent hover:bg-accent-hover text-white font-bold rounded-2xl transition-all duration-300 shadow-lg shadow-accent/20 hover:shadow-accent/40 hover:-translate-y-1">
+                         <FaExternalLinkAlt size={14}/>
+                         <span>Ver Proyecto</span>
+                      </a>
+                    )}
+                    {hasRepo && (
+                      <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" 
+                         className="flex items-center gap-3 px-8 py-4 glass-panel hover:border-accent/40 text-white font-bold rounded-2xl transition-all duration-300 hover:-translate-y-1">
+                         <FaGithub size={18}/>
+                         <span>Código Fuente</span>
+                      </a>
+                    )}
+                 </div>
+              </div>
+
+              {/* Contenido Visual */}
+              <div className="lg:col-span-7 space-y-8">
+                 <div className="relative rounded-[2.5rem] overflow-hidden border border-white/5 shadow-2xl">
+                    <div className="absolute inset-0 bg-gradient-to-t from-background/20 to-transparent pointer-events-none" />
+                    <img 
+                      src={project.imageUrl} 
+                      alt={project.title} 
+                      className="w-full h-auto object-cover"
+                    />
+                 </div>
+                 
+              </div>
+
+           </div>
+        </main>
+
+        {/* Footer detalle */}
+        <footer className="py-12 px-12 border-t border-white/5 mt-auto flex justify-between items-center opacity-30 grayscale pointer-events-none">
+           <span className="text-[10px] font-mono uppercase tracking-[0.5em]">Gustavo Bolívar</span>
+           <span className="text-[10px] font-mono uppercase tracking-[0.5em]">2026</span>
+        </footer>
+
       </div>
-
-      {/* ── Contenido principal ── */}
-      <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
-
-        {/* Encabezado del proyecto */}
-        <div className="mb-10">
-          <div className="flex items-center gap-3 mb-3">
-            <FaRegFolder className="text-[#E04E0B] text-xl" />
-            {project.categories?.map((cat) => (
-              <span
-                key={cat}
-                className="text-[10px] font-mono px-2 py-0.5 rounded-sm border border-[#E04E0B]/40 text-[#E04E0B] bg-[#E04E0B]/10"
-              >
-                {cat.toUpperCase()}
-              </span>
-            ))}
-          </div>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight mb-4">
-            {project.title}
-          </h1>
-          <p className="text-gray-400 text-base sm:text-lg leading-relaxed max-w-3xl">
-            {project.fullDescription || project.description}
-          </p>
-        </div>
-
-        {/* ── Imagen principal ── */}
-        <div className="relative rounded-2xl overflow-hidden mb-10 border border-white/10 shadow-2xl">
-          {/* Glow de fondo */}
-          <div className="absolute inset-0 bg-gradient-to-br from-[#E04E0B]/20 via-transparent to-purple-900/20 pointer-events-none z-10 rounded-2xl" />
-          <img
-            src={project.imageUrl}
-            alt={`Captura del proyecto ${project.title}`}
-            className="w-full object-cover max-h-[520px] rounded-2xl"
-            loading="lazy"
-            decoding="async"
-            onError={(e) => {
-              e.target.style.display = "none";
-            }}
-          />
-        </div>
-
-        {/* ── Tecnologías ── */}
-        <div className="mb-10">
-          <h2 className="text-sm font-mono text-[#E04E0B] uppercase tracking-widest mb-4">
-            Tecnologías utilizadas
-          </h2>
-          <div className="flex flex-wrap gap-3">
-            {project.technologies.map((tech, i) => (
-              <span
-                key={i}
-                className="bg-[#111] text-gray-300 text-xs font-mono px-4 py-2 rounded-md border border-orange-500/20 hover:border-[#E04E0B]/60 hover:text-white transition-all duration-300 cursor-default"
-              >
-                {tech}
-              </span>
-            ))}
-          </div>
-        </div>
-
-        {/* ── Botones de acción ── */}
-        <div className="flex flex-wrap gap-4">
-          {hasDemo && (
-            <a
-              href={project.pageUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              id={`btn-demo-${project.slug}`}
-              className="flex items-center gap-2 px-6 py-3 bg-[#E04E0B] hover:bg-[#FF6620] text-white font-semibold rounded-xl transition-all duration-300 shadow-lg shadow-[#E04E0B]/20 hover:shadow-[#E04E0B]/40 hover:-translate-y-0.5 active:translate-y-0"
-            >
-              <FaExternalLinkAlt className="text-sm" />
-              Ver demo
-            </a>
-          )}
-          {hasRepo && (
-            <a
-              href={project.githubUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              id={`btn-repo-${project.slug}`}
-              className="flex items-center gap-2 px-6 py-3 border border-white/20 hover:border-white/50 text-white font-semibold rounded-xl transition-all duration-300 hover:bg-white/5 hover:-translate-y-0.5 active:translate-y-0"
-            >
-              <FaGithub className="text-lg" />
-              Ver repositorio
-            </a>
-          )}
-        </div>
-
-      </main>
-      </motion.div>
     </motion.div>
   );
 };

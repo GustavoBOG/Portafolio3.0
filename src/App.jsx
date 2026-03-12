@@ -1,13 +1,29 @@
 import { Routes, Route, useLocation, Outlet } from "react-router-dom";
-import { useEffect, useLayoutEffect } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { useEffect, Suspense, lazy } from "react";
+import { AnimatePresence } from "framer-motion";
+
+// Importaciones directas para componentes críticos (Above the fold)
 import Header from "./components/header/Header";
 import Home from "./components/home/Home";
 import Projects from "./components/Projects/Projects";
-import About from "./components/about/About";
-import Skills from "./components/skills/Skills";
-import Certificates from "./components/certificates/Certificates";
 import ProjectDetail from "./components/Projects/ProjectDetail";
+
+// Lazy loading para secciones pesadas o no críticas inmediatamente
+const About = lazy(() => import("./components/about/About"));
+const Skills = lazy(() => import("./components/skills/Skills"));
+const Certificates = lazy(() => import("./components/certificates/Certificates"));
+
+/**
+ * LoadingFallback
+ * Componente simple para mostrar durante la carga de las secciones lazy.
+ */
+const LoadingFallback = () => (
+  <div className="w-full h-24 flex items-center justify-center">
+    <div className="w-8 h-[2px] bg-accent/20 overflow-hidden relative">
+      <div className="absolute inset-0 bg-accent animate-[loading_1.5s_infinite]" />
+    </div>
+  </div>
+);
 
 
 
@@ -25,8 +41,8 @@ function MainPortfolio() {
       {/* Barra de Navegación fijada en la parte superior */}
       <Header />
 
-      {/* Contenedor principal de todas las secciones */}
-      <main className="flex-grow w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-20">
+      {/* Contenedor principal liberado (ancho total) */}
+      <main className="flex-grow w-full mt-20 overflow-x-hidden">
 
         {/* Sección: Inicio */}
         <section id="inicio">
@@ -38,20 +54,23 @@ function MainPortfolio() {
           <Projects />
         </section>
 
-        {/* Sección: Tecnologías */}
-        <section id="stack" className="mt-2">
-          <Skills />
-        </section>
+        {/* Secciones con Carga Perezosa (Lazy Load) */}
+        <Suspense fallback={<LoadingFallback />}>
+          {/* Sección: Tecnologías */}
+          <section id="stack" className="mt-2">
+            <Skills />
+          </section>
 
-        {/* Sección: Sobre Mí */}
-        <section id="sobre-mi" className="mt-24">
-          <About />
-        </section>
+          {/* Sección: Sobre Mí */}
+          <section id="sobre-mi" className="mt-24">
+            <About />
+          </section>
 
-        {/* Sección: Formación */}
-        <section id="formacion" className="mt-24 mb-24">
-          <Certificates />
-        </section>
+          {/* Sección: Formación */}
+          <section id="formacion" className="mt-24 mb-24">
+            <Certificates />
+          </section>
+        </Suspense>
 
       </main>
 
