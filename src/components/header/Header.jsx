@@ -1,15 +1,25 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-scroll';
+import { Link as ScrollLink } from 'react-scroll';
+import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom';
 import { FiMenu, FiX } from "react-icons/fi";
 
 /**
  * Componente Header (Barra de Navegación)
  * Navegación fija tipo "Sticky Navbar". Contiene el menú desktop y su contraparte
  * responsive para móvil con menú lateral (drawer) y desenfoques visuales.
+ *
+ * Comportamiento de navegación:
+ * - En la ruta "/" → usa react-scroll para navegar entre secciones de la misma página.
+ * - En otras rutas → navega a "/#sección" usando react-router-dom.
  */
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  // ¿Estamos en la página principal?
+  const isHomePage = location.pathname === "/";
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -19,7 +29,6 @@ const Header = () => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
     };
-
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -39,10 +48,39 @@ const Header = () => {
     { target: "formacion", label: "FORMACIÓN" }
   ];
 
+  /**
+   * Navega a la sección correcta dependiendo de la ruta actual.
+   * Si estamos en "/", hace scroll suave.
+   * Si estamos en otra ruta, navega primero a "/" y luego hace scroll.
+   */
+  const handleNavClick = (target) => {
+    if (isMenuOpen) setIsMenuOpen(false);
+
+    if (!isHomePage) {
+      // Navegar a home y luego hacer scroll a la sección
+      navigate(`/#${target}`);
+      // El scroll lo maneja el hash en el efecto de useLocation
+    }
+    // Si estamos en home, react-scroll se encarga del scroll (ver ScrollLink)
+  };
+
+  // Cuando llegamos desde otra ruta con un hash, hacemos scroll al elemento
+  useEffect(() => {
+    if (location.hash) {
+      const id = location.hash.replace("#", "");
+      const el = document.getElementById(id);
+      if (el) {
+        setTimeout(() => {
+          el.scrollIntoView({ behavior: "smooth", block: "start" });
+        }, 100);
+      }
+    }
+  }, [location]);
+
   return (
     <>
       {isMenuOpen && (
-        <div 
+        <div
           className="fixed inset-0 bg-black bg-opacity-50 z-40 transition-opacity"
           onClick={toggleMenu}
         />
@@ -51,7 +89,7 @@ const Header = () => {
       <header className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-header/95 backdrop-blur-sm py-4' : 'bg-transparent py-6'}`}>
         {/* Gradient Border Line */}
         <div className="absolute bottom-0 left-0 w-full h-[2px] bg-header-gradient" />
-        
+
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-center relative">
           <div className="md:hidden absolute left-4">
             <span className="font-bold text-lg">
@@ -59,21 +97,34 @@ const Header = () => {
               <span className="text-accent">B</span>
             </span>
           </div>
+
           <nav className="hidden md:flex">
             <ul className="flex space-x-12">
               {menuItems.map((item) => (
                 <li key={item.target}>
-                  <Link
-                    to={item.target}
-                    spy={true}
-                    smooth={true}
-                    offset={-100}
-                    duration={500}
-                    activeClass="text-accent font-bold"
-                    className="text-textSecondary hover:text-white text-sm tracking-widest font-semibold cursor-pointer transition-colors"
-                  >
-                    {item.label}
-                  </Link>
+                  {isHomePage ? (
+                    /* En la página principal: react-scroll para scroll suave */
+                    <ScrollLink
+                      to={item.target}
+                      spy={true}
+                      smooth={true}
+                      offset={-100}
+                      duration={500}
+                      activeClass="text-accent font-bold"
+                      className="text-textSecondary hover:text-white text-sm tracking-widest font-semibold cursor-pointer transition-colors"
+                    >
+                      {item.label}
+                    </ScrollLink>
+                  ) : (
+                    /* En páginas internas: router link con hash */
+                    <RouterLink
+                      to={`/#${item.target}`}
+                      className="text-textSecondary hover:text-white text-sm tracking-widest font-semibold cursor-pointer transition-colors"
+                      onClick={() => handleNavClick(item.target)}
+                    >
+                      {item.label}
+                    </RouterLink>
+                  )}
                 </li>
               ))}
             </ul>
@@ -81,8 +132,8 @@ const Header = () => {
 
           {/* Mobile Menu Toggle */}
           <div className="md:hidden absolute right-4">
-            <button 
-              onClick={toggleMenu} 
+            <button
+              onClick={toggleMenu}
               className="text-white hover:text-accent transition-colors focus:outline-none"
             >
               {isMenuOpen ? <FiX className="w-6 h-6" /> : <FiMenu className="w-6 h-6" />}
@@ -91,12 +142,12 @@ const Header = () => {
         </div>
 
         {/* Mobile Dropdown Menu */}
-        <div 
+        <div
           className={`fixed top-0 right-0 w-[60%] h-full bg-surface shadow-2xl z-50 transform transition-transform duration-300 ease-in-out ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'} md:hidden`}
         >
           <div className="flex justify-end p-6 border-b border-gray-800">
-            <button 
-              onClick={toggleMenu} 
+            <button
+              onClick={toggleMenu}
               className="text-white hover:text-accent transition-colors focus:outline-none"
             >
               <FiX className="w-6 h-6" />
@@ -105,18 +156,28 @@ const Header = () => {
           <ul className="flex flex-col mt-8">
             {menuItems.map((item) => (
               <li key={item.target}>
-                <Link
-                  to={item.target}
-                  spy={true}
-                  smooth={true}
-                  offset={-80}
-                  duration={500}
-                  onClick={toggleMenu}
-                  activeClass="text-accent border-l-4 border-accent pl-4 bg-gray-800/50"
-                  className="block px-8 py-5 text-gray-300 hover:text-white hover:bg-gray-800/30 transition-all font-medium tracking-wide cursor-pointer"
-                >
-                  {item.label}
-                </Link>
+                {isHomePage ? (
+                  <ScrollLink
+                    to={item.target}
+                    spy={true}
+                    smooth={true}
+                    offset={-80}
+                    duration={500}
+                    onClick={toggleMenu}
+                    activeClass="text-accent border-l-4 border-accent pl-4 bg-gray-800/50"
+                    className="block px-8 py-5 text-gray-300 hover:text-white hover:bg-gray-800/30 transition-all font-medium tracking-wide cursor-pointer"
+                  >
+                    {item.label}
+                  </ScrollLink>
+                ) : (
+                  <RouterLink
+                    to={`/#${item.target}`}
+                    className="block px-8 py-5 text-gray-300 hover:text-white hover:bg-gray-800/30 transition-all font-medium tracking-wide cursor-pointer"
+                    onClick={() => handleNavClick(item.target)}
+                  >
+                    {item.label}
+                  </RouterLink>
+                )}
               </li>
             ))}
           </ul>
