@@ -7,6 +7,7 @@ import Header from "./components/header/Header";
 import Home from "./components/home/Home";
 import Projects from "./components/Projects/Projects";
 import ProjectDetail from "./components/Projects/ProjectDetail";
+import Footer from "./components/footer/Footer";
 
 // Lazy loading para secciones pesadas o no críticas inmediatamente
 const About = lazy(() => import("./components/about/About"));
@@ -74,6 +75,9 @@ function MainPortfolio() {
 
       </main>
 
+      {/* Footer del sitio */}
+      <Footer />
+
       {/* Render the ProjectDetail overlay if we are on a project route */}
       <AnimatePresence>
         <Outlet key={location.pathname} />
@@ -90,7 +94,7 @@ function MainPortfolio() {
  */
 function App() {
   return (
-    <div className="w-full flex flex-col bg-background text-text font-sans relative">
+    <div className="w-full flex flex-col bg-background text-text font-sans relative min-h-screen">
       <Routes>
         <Route path="/" element={<MainPortfolio />}>
           {/* Default path matches the main portfolio layout, but we also map projects into it */}
