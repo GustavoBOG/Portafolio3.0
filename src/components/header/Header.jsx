@@ -1,158 +1,214 @@
-
-
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from "react-router-dom";
-import { IoMdDownload } from "react-icons/io";
-import { LiaToolsSolid } from "react-icons/lia";
-import { FaUserCircle } from "react-icons/fa";
-import { FaRegLightbulb } from "react-icons/fa";
-import { PiCertificateThin } from "react-icons/pi";
-import { FaBars, FaTimes } from "react-icons/fa";
+import { Link as ScrollLink } from 'react-scroll';
+import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom';
+import { FiMenu, FiX } from "react-icons/fi";
+import { motion, AnimatePresence } from "framer-motion";
 
+/**
+ * Componente Header (Barra de Navegación)
+ * Navegación fija tipo "Sticky Navbar". Contiene el menú desktop y su contraparte
+ * responsive para móvil con menú lateral (drawer) y desenfoques visuales.
+ *
+ * Comportamiento de navegación:
+ * - En la ruta "/" → usa react-scroll para navegar entre secciones de la misma página.
+ * - En otras rutas → navega a "/#sección" usando react-router-dom.
+ */
 const Header = () => {
-  const location = useLocation();
-  const currentPath = location.pathname;
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
+  // Detectar si estamos en la Home para habilitar scroll suave
+  const isHomePage = location.pathname === "/";
 
-  // Bloquear scroll cuando el menú está abierto
+  const toggleMenu = () => setIsMenuOpen(prev => !prev);
+
   useEffect(() => {
-    if (isMenuOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
+    // Optimización: Usar passive: true para mejorar el rendimiento del scroll
+    const handleScroll = () => {
+      const offset = window.scrollY > 30;
+      if (isScrolled !== offset) {
+        setIsScrolled(offset);
+      }
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [isScrolled]);
+
+  // Bloquear scroll del body cuando el menú móvil está abierto
+  useEffect(() => {
+    document.body.style.overflow = isMenuOpen ? 'hidden' : 'unset';
+    return () => { document.body.style.overflow = 'unset'; };
   }, [isMenuOpen]);
 
   const menuItems = [
-    { 
-      path: "/Projects", 
-      label: "Projects", 
-      icon: <LiaToolsSolid className="mr-2 w-9 h-9 text-grisclaro" /> 
-    },
-    { 
-      path: "/About", 
-      label: "About Me", 
-      icon: <FaUserCircle className="mr-2 w-9 h-9 text-vividBlue" /> 
-    },
-    { 
-      path: "/Skills", 
-      label: "Skills", 
-      icon: <FaRegLightbulb className="mr-2 w-9 h-9 text-bombilla" /> 
-    },
-    { 
-      path: "/Certificates", 
-      label: "Certificates", 
-      icon: <PiCertificateThin className="mr-2 w-9 h-9 text-vividBlue" /> 
-    }
+    { target: "inicio", label: "Inicio" },
+    { target: "proyectos", label: "Proyectos" },
+    { target: "sobre-mi", label: "Sobre Mí" },
+    { target: "formacion", label: "Formación" }
   ];
+
+  /**
+   * handleNavClick
+   * Gestiona la navegación tanto interna (scroll) como externa (rutas).
+   */
+  const handleNavClick = (target) => {
+    if (isMenuOpen) setIsMenuOpen(false);
+
+    if (!isHomePage) {
+      navigate(`/#${target}`);
+    }
+  };
+
+  // Efecto para manejar el scroll automático cuando se llega con un hash en la URL
+  useEffect(() => {
+    if (location.hash) {
+      const id = location.hash.replace("#", "");
+      const el = document.getElementById(id);
+      if (el) {
+        setTimeout(() => {
+          el.scrollIntoView({ behavior: "smooth", block: "start" });
+        }, 150);
+      }
+    }
+  }, [location]);
 
   return (
     <>
-      {/* Fondo oscuro cuando el menú está abierto */}
-      {isMenuOpen && (
-        <div 
-          className="fixed inset-0 bg-black bg-opacity-50 z-40"
-          onClick={toggleMenu}
-        />
-      )}
+      {/* Overlay para el menú móvil */}
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 md:hidden"
+            onClick={toggleMenu}
+            aria-hidden="true"
+          />
+        )}
+      </AnimatePresence>
 
-      <header className="bg-header text-white py-4 px-6 flex items-center justify-between w-full h-[80px] relative z-50">
-        {/* Logo/Nombre */}
-        <div className="mr-12">
-          <Link 
+      <header 
+        className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${
+          isScrolled 
+            ? 'py-3 bg-background/80 backdrop-blur-md border-b border-white/5' 
+            : 'py-6 bg-transparent border-b border-transparent'
+        }`}
+      >
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 flex items-center justify-between">
+          
+          {/* Logo / Identidad Visual */}
+          <RouterLink 
             to="/" 
-            className="text-primario font-roboto ml-10 text-h5 md:text-h3"
+            className="group flex items-center gap-2 focus:outline-none"
+            onClick={() => isHomePage && window.scrollTo({ top: 0, behavior: 'smooth' })}
           >
-            Gustavo Bolivar
-          </Link>
-        </div>
+            <div className="w-10 h-10 rounded-xl bg-accent flex items-center justify-center text-white font-black text-xl shadow-[0_0_20px_rgba(224,78,11,0.3)] group-hover:scale-110 transition-transform duration-300">
+              G
+            </div>
+            <div className="hidden sm:block">
+              <span className="text-white font-bold tracking-tighter text-lg">BOLÍVAR</span>
+              <span className="block text-[10px] text-accent font-mono leading-none tracking-[0.2em] -mt-1 uppercase">Dev & Design</span>
+            </div>
+          </RouterLink>
 
-        {/* Desktop Navigation */}
-        <nav className="hidden md:flex flex-grow">
-          <ul className="flex space-x-9">
-            {menuItems.map((item) => (
-              <li key={item.path}>
-                <Link
-                  to={item.path}
-                  className={`text-h4 font-roboto hover:text-primario transition-colors ${
-                    currentPath === item.path
-                      ? "text-primario border-b-2 border-primario"
-                      : ""
-                  }`}
-                >
-                  {item.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
+          {/* Navegación Desktop */}
+          <nav className="hidden md:block">
+            <ul className="flex items-center gap-8">
+              {menuItems.map((item) => (
+                <li key={item.target}>
+                  {isHomePage ? (
+                    <ScrollLink
+                      to={item.target}
+                      spy={true}
+                      smooth="true"
+                      offset={-100}
+                      duration={800}
+                      activeClass="!text-accent after:scale-x-100"
+                      className="relative text-textSecondary hover:text-white text-xs tracking-[0.15em] font-bold uppercase cursor-pointer transition-colors duration-300 py-2 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-accent after:scale-x-0 after:transition-transform after:duration-300"
+                    >
+                      {item.label}
+                    </ScrollLink>
+                  ) : (
+                    <RouterLink
+                      to={`/#${item.target}`}
+                      className="text-textSecondary hover:text-white text-xs tracking-[0.15em] font-bold uppercase transition-colors duration-300 py-2"
+                      onClick={() => handleNavClick(item.target)}
+                    >
+                      {item.label}
+                    </RouterLink>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </nav>
 
-        {/* Download CV Button (Desktop) */}
-        <a
-          href="/cv/CV.pdf"
-          download
-          className="hidden md:flex bg-primario hover:bg-vividBlue text-h4 font-roboto rounded-full py-3 px-16 items-center transition-colors"
-        >
-          Download CV
-          <IoMdDownload className="w-[30px] h-[30px] ml-2" />
-        </a>
+          {/* Botón CTA Header o Redes (Opcional) */}
+          <div className="hidden md:block">
+             <a href="#contacto" className="px-5 py-2 rounded-full border border-accent/30 text-accent text-[10px] font-bold uppercase tracking-widest hover:bg-accent hover:text-white transition-all duration-300">
+                Contacto
+             </a>
+          </div>
 
-        {/* Mobile Menu Toggle */}
-        <div className="md:hidden">
-          <button 
-            onClick={toggleMenu} 
-            className="text-white focus:outline-none"
+          {/* Botón Menú Móvil */}
+          <button
+            onClick={toggleMenu}
+            className="md:hidden w-10 h-10 flex flex-col items-center justify-center gap-1.5 focus:outline-none"
+            aria-expanded={isMenuOpen}
+            aria-label="Alternar menú de navegación"
           >
-            {isMenuOpen ? <FaTimes className="w-6 h-6" /> : <FaBars className="w-6 h-6" />}
+            <span className={`w-6 h-0.5 bg-white transition-all duration-300 ${isMenuOpen ? 'rotate-45 translate-y-2' : ''}`} />
+            <span className={`w-6 h-0.5 bg-accent transition-opacity duration-300 ${isMenuOpen ? 'opacity-0' : 'opacity-100'}`} />
+            <span className={`w-4 h-0.5 bg-white self-end transition-all duration-300 ${isMenuOpen ? '-rotate-45 -translate-y-2 !w-6' : ''}`} />
           </button>
         </div>
 
-        {/* Mobile Dropdown Menu */}
-        {isMenuOpen && (
-          <div 
-            className="fixed top-0 right-0 w-[50%] h-full bg-header md:hidden z-50 shadow-lg"
-          >
-            <div className="flex justify-end p-4">
-              <button 
-                onClick={toggleMenu} 
-                className="text-white focus:outline-none"
-              >
-                <FaTimes className="w-6 h-6" />
-              </button>
+        {/* Menú Lateral Móvil (Drawer) */}
+        <aside
+          className={`fixed top-0 right-0 w-[80%] max-w-sm h-full bg-[#050505] border-l border-white/5 z-50 transform transition-transform duration-500 cubic-bezier(0.4, 0, 0.2, 1) ${isMenuOpen ? 'translate-x-0 shadow-2xl shadow-accent/10' : 'translate-x-full'}`}
+        >
+          <div className="flex flex-col h-full p-8">
+            <div className="flex justify-end mb-12">
+               <button onClick={toggleMenu} className="text-gray-400 hover:text-white"><FiX size={28}/></button>
             </div>
-            <ul className="flex flex-col">
-              {menuItems.map((item) => (
-                <li key={item.path}>
-                  <Link
-                    to={item.path}
-                    onClick={toggleMenu}
-                    className={`flex items-center px-6 py-4 hover:bg-primario transition-colors ${
-                      currentPath === item.path ? "bg-primario" : ""
-                    }`}
-                  >
-                    {item.icon}
-                    {item.label}
-                  </Link>
+            <ul className="space-y-6">
+              {menuItems.map((item, idx) => (
+                <li key={item.target}>
+                  {isHomePage ? (
+                    <ScrollLink
+                      to={item.target}
+                      spy={true}
+                      smooth="true"
+                      offset={-80}
+                      duration={800}
+                      onClick={toggleMenu}
+                      className="block text-2xl font-black uppercase tracking-tighter text-textSecondary hover:text-accent transition-colors cursor-pointer"
+                    >
+                      <span className="text-xs font-mono text-accent mr-2">0{idx + 1}.</span>
+                      {item.label}
+                    </ScrollLink>
+                  ) : (
+                    <RouterLink
+                      to={`/#${item.target}`}
+                      onClick={() => handleNavClick(item.target)}
+                      className="block text-2xl font-black uppercase tracking-tighter text-textSecondary hover:text-accent transition-colors"
+                    >
+                      <span className="text-xs font-mono text-accent mr-2">0{idx + 1}.</span>
+                      {item.label}
+                    </RouterLink>
+                  )}
                 </li>
               ))}
-              <li>
-                <a
-                  href="/cv/CV.pdf"
-                  download
-                  className="flex items-center px-6 py-4 hover:bg-primario transition-colors"
-                  onClick={toggleMenu}
-                >
-                  <IoMdDownload className="mr-2 w-9 h-9" />
-                  Download CV
-                </a>
-              </li>
             </ul>
+            <div className="mt-auto pt-8 border-t border-white/5">
+                <p className="text-[10px] font-mono text-gray-500 uppercase tracking-widest leading-relaxed">
+                  Basado en Madrid, <br/>disponible para proyectos globales.
+                </p>
+            </div>
           </div>
-        )}
+        </aside>
       </header>
     </>
   );

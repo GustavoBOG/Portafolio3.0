@@ -1,132 +1,74 @@
-import React, { useState, useEffect } from 'react';
-import { TbWorld } from "react-icons/tb";
-import { FaGear } from "react-icons/fa6";
-import { BsTools } from "react-icons/bs";
+import React from 'react';
+import { FaRocket } from "react-icons/fa";
+import { 
+  SiHtml5, SiCss3, SiJavascript, SiReact, SiNodedotjs, 
+  SiNextdotjs, SiGit, SiPostman, SiFigma, SiMysql 
+} from "react-icons/si";
 
+/**
+ * Componente SVG personalizado auxiliar (ej. para un icono interno o framework custom).
+ */
+const AntigravityIcon = (props) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" {...props}>
+    <path fill="currentColor" d="M12.025 2q2.025 0 3.163 1.525T17.125 7q.65 1.575 1.25 3.5t1.275 3.875q.65 1.875 1.425 3.525t1.8 2.825q.2.225.175.525t-.225.525t-.475.25t-.55-.175q-1.975-1.55-3.25-3.463t-2.575-3.337q-.85-.95-1.812-1.5T12.025 13t-2.137.55t-1.813 1.5q-1.3 1.425-2.575 3.338T2.25 21.85q-.275.2-.55.175t-.475-.25T1 21.25t.175-.525Q2.2 19.55 2.975 17.9T4.4 14.375q.675-1.95 1.275-3.875T6.925 7q.8-1.95 1.938-3.475T12.025 2"/>
+  </svg>
+);
+
+/**
+ * Componente Skills
+ * Sección visual "Stack Tecnológico". Presenta un carrusel animado (Marquee)
+ * de infinito recorrido horizontal con las tecnologías que manejas.
+ */
 const Skills = () => {
-  const [activeCategory, setActiveCategory] = useState('FRONTEND');
-  const [isMobile, setIsMobile] = useState(false);
-  const [isTablet, setIsTablet] = useState(false);
+  const allSkills = [
+    { name: 'HTML', icon: SiHtml5 },
+    { name: 'CSS', icon: SiCss3 },
+    { name: 'JavaScript', icon: SiJavascript },
+    { name: 'React', icon: SiReact },
+    { name: 'Node.js', icon: SiNodedotjs },
+    { name: 'Next.js', icon: SiNextdotjs },
+    { name: 'Git', icon: SiGit },
+    { name: 'Postman', icon: SiPostman },
+    { name: 'Antigravity', icon: AntigravityIcon },
+    { name: 'Figma', icon: SiFigma },
+    { name: 'MySQL', icon: SiMysql },
+  ];
 
-  // Detectar tamaño de pantalla para ajustes responsivos
-  useEffect(() => {
-    const checkScreenSize = () => {
-      setIsMobile(window.innerWidth < 640);
-      setIsTablet(window.innerWidth >= 640 && window.innerWidth < 1024);
-    };
-    
-    checkScreenSize();
-    window.addEventListener('resize', checkScreenSize);
-    
-    return () => window.removeEventListener('resize', checkScreenSize);
-  }, []);
-
-  const skillsData = {
-    FRONTEND: [
-      { name: 'HTML5', icon: '/images/skills/html5.png', alt: 'Logo de HTML5' },
-      { name: 'CSS', icon: '/images/skills/css.png', alt: 'Logo de CSS' },
-      { name: 'JAVASCRIPT', icon: '/images/skills/js.png', alt: 'Logo de JavaScript' },
-      { name: 'REACT', icon: '/images/skills/react.png', alt: 'Logo de React' },
-      { name: 'NPM', icon: '/images/skills/npm.png', alt: 'Logo de NPM' },
-      { name: 'TAILWIND', icon: '/images/skills/tailwind.png', alt: 'Logo de Tailwind' }
-    ],
-    BACKEND: [
-      { name: 'MYSQL', icon: '/images/skills/mySQL.png', alt: 'Logo de MySQL' },
-      { name: 'EXPRESS', icon: '/images/skills/express.png', alt:'Logo de Express'},
-      { name: 'JWT', icon: '/images/skills/jwt.png', alt: 'Logo de JWT' },
-      { name: 'NODE', icon: '/images/skills/node.png', alt: 'Logo de NODE' },
-    ],
-    TOOLS: [
-      { name: 'VS CODE', icon: '/images/skills/vsc.png', alt: 'Logo de VISUAL ESTUDIO CODE' },
-      { name: 'MYSQL', icon: '/images/skills/mySQL.png', alt: 'Logo de MySQL' },
-      { name: 'POSTMAN', icon: '/images/skills/postman.png', alt: 'Logo de POSTMAN' },
-      { name: 'SLACK', icon: '/images/skills/slack.png', alt: 'Logo de SLACK' },
-      { name: 'DISCORD', icon: '/images/skills/discord.png', alt: 'Logo de DISCORD' },
-      { name: 'NOTION', icon: '/images/skills/notion.png', alt: 'Logo de NOTION' },
-      { name: 'GITBASH', icon: '/images/skills/gitbash.png', alt: 'Logo de GITBASH' },
-      { name: 'GITHUB', icon: '/images/skills/github.png', alt: 'Logo de GITHUB' },
-      { name: 'FIGMA', icon: '/images/skills/figma.png', alt: 'Logo de FIGMA' },
-      { name: 'MEET', icon: '/images/skills/meet.png', alt: 'Logo de MEET' },
-      { name: 'ZOOM', icon: '/images/skills/zoom.png', alt: 'Logo de ZOOM' },
-      { name: 'TRELLO', icon: '/images/skills/trello.png', alt: 'Logo de TRELLO' }
-    ]
-  };
-
-  // Configuraciones de layout para diferentes tamaños de pantalla
-  const getCategoryLayout = (category) => {
-    if (isMobile || isTablet) {
-      switch(category) {
-        case 'FRONTEND': return { cols: 3, rows: 2 }; // Se mantiene igual
-        case 'BACKEND': return { cols: 2, rows: 2 }; // Cambia a 2x2
-        case 'TOOLS': return { cols: 3, rows: 4 }; // Cambia a 3x4
-        default: return { cols: 2, rows: 2 };
-      }
-    } else {
-      // Layout para pantallas grandes (original)
-      switch(category) {
-        case 'FRONTEND': return { cols: 3, rows: 2 };
-        case 'BACKEND': return { cols: 4, rows: 1 };
-        case 'TOOLS': return { cols: 6, rows: 2 };
-        default: return { cols: 3, rows: 2 };
-      }
-    }
-  };
-
-  const categoryIcons = {
-    FRONTEND: <TbWorld className="text-text text-h1" />,
-    BACKEND: <FaGear className="text-text text-h1" />,
-    TOOLS: <BsTools className="text-text text-h1" />
-  };
+  const marqueeSkills = [...allSkills, ...allSkills, ...allSkills, ...allSkills];
 
   return (
-    <section className="w-full min-h-[calc(100vh-80px)] bg-background py-10 relative">
-      <div>
-        
-        <div className="mb-10 w-full bg-header py-4 px-6 relative">
-          <div className="grid grid-cols-3 gap-4 w-full mx-auto"> 
-            {Object.keys(skillsData).map((category) => (
-              <button
-                key={category}
-                className={`flex flex-col items-center justify-center py-2 rounded-xl cursor-pointer transition-all duration-300 ${
-                  activeCategory === category ? 'bg-[#264470]' : 'shadow-inner shadow-white/10'
-                }`}
-                style={{
-                  boxShadow: activeCategory === category ? '8px 8px 4px rgba(0, 0, 0, 0.25)' : 'inset 8px 8px 4px rgba(15, 15, 15, 0.46)'
-                }}
-                onClick={() => setActiveCategory(category)}
-              >
-                <div className="mb-2">
-                  {categoryIcons[category]}
-                </div>
-                <span className={`text-text font-roboto ${isMobile ? 'text-xs' : isTablet ? 'text-sm' : 'text-h4'}`}>
-                  {category}
-                </span>
-              </button>
-            ))}
+    <section className="w-full relative py-20 overflow-hidden">
+      <div className="max-w-6xl mx-auto px-6 lg:px-12">
+        {/* Título de Sección con Estilo Editorial */}
+        <div className="w-full mb-16 relative">
+          <div className="flex items-center gap-6 mb-4">
+             <div className="h-[2px] w-12 bg-accent/60"></div>
+             <span className="text-accent font-mono text-[10px] tracking-[0.4em] uppercase font-bold">Tecnologías</span>
           </div>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-white uppercase tracking-tight leading-none">
+            Stack <br/> 
+            <span className="text-textSecondary/40">Técnico</span>
+          </h2>
         </div>
-        
-        <div className="flex justify-center">
-          <div 
-            className="grid gap-8 max-w-6xl w-full"
-            style={{
-              gridTemplateColumns: `repeat(${getCategoryLayout(activeCategory).cols}, minmax(0, 1fr))`,
-              gridTemplateRows: `repeat(${getCategoryLayout(activeCategory).rows}, minmax(0, 1fr))`
-            }}
-          >
-            {skillsData[activeCategory].map((skill, index) => (
-              <div 
-                key={index} 
-                className="flex flex-col items-center justify-center p-4"
+      </div>
+
+      {/* Contenedor del Marquee con Glassmorphism */}
+      <div className="relative py-10">
+        {/* Sombras laterales para difuminado de entrada/salida */}
+        <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-background to-transparent z-10" />
+        <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-background to-transparent z-10" />
+
+        <div className="flex overflow-hidden group">
+          <div className="flex animate-marquee group-hover:pause-animation gap-12 pr-12">
+            {marqueeSkills.map((skill, index) => (
+              <div
+                key={index}
+                className="flex items-center gap-6 glass-panel rounded-2xl px-10 py-6 transition-all duration-500 hover:border-accent/40 hover:bg-accent/5 hover:-translate-y-1 group/card"
               >
-                <div>
-                  <img 
-                    src={skill.icon} 
-                    alt={skill.alt}
-                    className={`${isMobile ? 'w-16 h-16' : isTablet ? 'w-24 h-24' : 'w-36 h-36'} object-contain hover:scale-125 transition-all`} 
-                  />
+                <div className="text-3xl md:text-4xl text-accent/80 group-hover/card:text-accent group-hover/card:scale-110 transition-all duration-500">
+                  <skill.icon />
                 </div>
-                <span className={`text-text text-center font-roboto mt-5 ${isMobile ? 'text-xs' : isTablet ? 'text-sm' : 'text-h5'}`}>
+                <span className="text-lg md:text-xl font-bold tracking-tight text-gray-300 group-hover/card:text-white transition-colors">
                   {skill.name}
                 </span>
               </div>
@@ -134,6 +76,11 @@ const Skills = () => {
           </div>
         </div>
       </div>
+
+      {/* Descripción final sutil */}
+      <p className="text-center text-gray-500 text-sm mt-12 font-light tracking-wide max-w-2xl mx-auto">
+        Explorando constantemente las últimas fronteras del desarrollo para crear soluciones de alto rendimiento con <span className="text-accent">JavaScript</span> y ecosistemas modernos.
+      </p>
     </section>
   );
 };

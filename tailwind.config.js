@@ -8,30 +8,38 @@ export default {
     extend: {
       backgroundImage: {
         'custom-gradient': 'linear-gradient(30deg, #1C4470 35%, #2963A3 50%, #1C4470 75%)',
+        'orange-gradient': 'linear-gradient(135deg, #FF4D00 0%, #FBC30B 100%)',
+        'header-gradient': 'linear-gradient(90deg, #FF4D00 33%, rgba(251, 195, 11, 0) 100%)',
+        'glass-gradient': 'linear-gradient(110deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%)',
       },
       colors: {
-        background: "#0E2944", // Fondo
-        header: "#192C3F", // Header
-        text: "#FFFFFF", // Texto
-        primario: "#51B6F9", // Azul Secundario
-        vividBlue: "#115FFF", // Azul Vivo
-        midnightBlue: "#264470", // Azul Oscuro
-        grisclaro: "#4B4949",//para la herramienta
-        bombilla: "#F7FF09",//para la bombilla 
+        background: "#050505", // Fondo ultra oscuro para profundidad
+        surface: "#0A0A0A", // Superficie de tarjetas
+        header: "rgba(5, 5, 5, 0.8)", // Transparencia para el header
+        text: "#F8F9FA", // Blanco suave para lectura
+        textSecondary: "#A3A3A3", // Gris neutro profesional
+        accent: {
+          DEFAULT: "#E04E0B",
+          hover: "#FF5F15",
+          glow: "rgba(224, 78, 11, 0.4)",
+        },
+        accentDark: "#1A0D07",
       },
       fontFamily: {
-        roboto: ["Roboto", "sans-serif"],
+        sans: ["Outfit", "Inter", "system-ui", "sans-serif"], // Outfit como fuente principal moderna
+        mono: ["Consolas", "Monaco", "monospace"],
       },
-      fontSize: {
-        h1: ["48px", { fontWeight: "700" }],  // h1 más grande que h3
-        h2: ["40px", { fontWeight: "700" }],  // h2 ligeramente más pequeño que h1
-        h3: ["36px", { fontWeight: "700" }],  // h3 como referencia
-        h4: ["24px", { fontWeight: "700" }],  // h4 más pequeño que h3
-        h5: ["18px", { fontWeight: "700" }],  // h5 más pequeño que h4
-        h6: ["20px", { fontWeight: "200" }],
+      animation: {
+        'float': 'float 6s ease-in-out infinite',
+        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+      },
+      keyframes: {
+        float: {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-20px)' },
+        }
       }
     },
   },
   plugins: [],
 }
-

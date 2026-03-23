@@ -1,210 +1,143 @@
-import React, { useState, useEffect } from 'react';
-import { certificates } from '../../data/certificatesData';
+import { FaExternalLinkAlt } from "react-icons/fa";
+import { motion } from "framer-motion";
 
+/**
+ * Componente Certificates
+ * Rejilla de tarjetas que muestran tu información educativa y certificaciones.
+ * Implementado con un diseño premium glass-card.
+ */
 const Certificates = () => {
-  const [isStacked, setIsStacked] = useState(true);
-  const [expandedCertificate, setExpandedCertificate] = useState(null);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
-
-  // Detectar tamaño de pantalla para ajustes responsivos
-  useEffect(() => {
-    const checkScreenSize = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-
-    checkScreenSize();
-    window.addEventListener('resize', checkScreenSize);
-
-    return () => window.removeEventListener('resize', checkScreenSize);
-  }, []);
-
-  const certificatesData = certificates;
-
-  const cardWidth = 260;
-  const gap = 24;
-  const centerOffset = ((certificatesData.length - 1) * (cardWidth + gap)) / 2;
-
-  const handleCertificateClick = (id) => {
-    if (isTransitioning) return;
-
-    setIsTransitioning(true);
-
-    if (isStacked) {
-      setIsStacked(false);
-    } else if (expandedCertificate === id) {
-      setExpandedCertificate(null);
-    } else {
-      setExpandedCertificate(id);
+  const formationData = [
+    {
+      id: 1,
+      institution: 'Big School',
+      logo: '/images/certificates/bslogo.png',
+      title: 'Desarrollo con IA: de 0 a Producción',
+      year: '2026',
+      credentialUrl: null,
+    },
+    {
+      id: 2,
+      institution: 'Big School',
+      logo: '/images/certificates/bslogo.png',
+      title: 'Desarrollo con IA (Especialización)',
+      year: '2025',
+      credentialUrl: null,
+    },
+    {
+      id: 3,
+      institution: 'Hack A Boss',
+      logo: '/images/certificates/hackaboss.png',
+      title: 'UX/UI Design: Primeros Pasos ',
+      year: '2025',
+      credentialUrl: null,
+    },
+    {
+      id: 4,
+      institution: 'Hack A Boss',
+      logo: '/images/certificates/hackaboss.png',
+      title: 'Bootcamp Desarrollador Full Stack ',
+      year: '2024',
+      credentialUrl: null,
+    },
+    {
+      id: 5,
+      institution: 'Udemy',
+      logo: '/images/certificates/u.png',
+      title: 'Especialización en Maquetación (Máster en CSS y HTML5)',
+      year: '2024',
+      credentialUrl: null,
+    },
+    {
+      id: 6,
+      institution: 'U.E Colegio Tirso De Molina',
+      logo: '/images/logoTirso.png',
+      title: 'Bachiller en Ciencias l',
+      year: '2013',
+      credentialUrl: null,
     }
+  ];
 
-    setTimeout(() => {
-      setIsTransitioning(false);
-    }, 700);
-  };
-
-  const renderExpandedCertificate = () => {
-    const certificate = certificatesData.find(cert => cert.id === expandedCertificate);
-
-    if (isMobile) {
-      return (
-        <div className="flex justify-center items-center w-full transition-all duration-700 ease-in-out">
-          <div
-            className="flex flex-col bg-white rounded-2xl overflow-hidden shadow-xl cursor-pointer w-full max-w-sm"
-            style={{ boxShadow: '16px 16px 4px rgba(0, 0, 0, 0.25)' }}
-            onClick={() => handleCertificateClick(certificate.id)}
-          >
-            {/* Tarjeta superior en móvil */}
-            <div className={`w-full p-6 flex flex-col items-center justify-center ${certificate.background} relative`}>
-              <div className="absolute top-4 left-4 w-8 h-8 bg-background rounded-full flex items-center justify-center">
-                <span className="text-white font-medium">{certificate.id}</span>
-              </div>
-              <h3 className="text-white text-lg font-bold mb-4 text-center font-roboto">{certificate.title}</h3>
-              <img
-                src={certificate.logo}
-                alt={`Logo de ${certificate.title}`}
-                className="h-32 w-auto object-contain"
-              />
-            </div>
-
-            {/* Certificado expandido debajo en móvil */}
-            <div className="w-full bg-white">
-              <img
-                src={certificate.certificate}
-                alt={`Certificado de ${certificate.title}`}
-                className="w-full h-auto object-contain"
-              />
-            </div>
-          </div>
-        </div>
-      );
-    } else {
-      // Versión original exacta para desktop
-      return (
-        <div className="flex justify-center items-center w-full transition-all duration-700 ease-in-out">
-          <div
-            className="flex flex-row bg-white rounded-2xl overflow-hidden shadow-xl cursor-pointer h-[500px] max-w-6xl w-full"
-            style={{ boxShadow: '16px 16px 4px rgba(0, 0, 0, 0.25)' }}
-            onClick={() => handleCertificateClick(certificate.id)}
-          >
-            {/* Lado izquierdo - Tarjeta */}
-            <div className={`w-[300px] p-6 flex flex-col items-center justify-center ${certificate.background}`}>
-              <div className="w-10 h-10 bg-background rounded-full flex items-center justify-center mb-4">
-                <span className="text-white font-medium text-lg">{certificate.id}</span>
-              </div>
-              <h3 className="text-white text-lg font-bold mb-4 text-center font-roboto">{certificate.title}</h3>
-              <img
-                src={certificate.logo}
-                alt={`Logo de ${certificate.title}`}
-                className="h-32 w-auto object-contain"
-              />
-            </div>
-
-            {/* Lado derecho - Imagen del certificado */}
-            <div className="flex-grow bg-white">
-              <img
-                src={certificate.certificate}
-                alt={`Certificado de ${certificate.title}`}
-                className="w-full h-[500px] object-contain"
-              />
-            </div>
-          </div>
-        </div>
-      );
-    }
-  };
-
-  const renderAnimatedCertificates = () => {
-    if (isMobile) {
-      // Vista vertical para móviles - centrada
-      return (
-        <div className="relative flex flex-col items-center justify-start gap-8 w-full py-4">
-          {certificatesData.map((certificate) => (
-            <div
-              key={certificate.id}
-              className={`relative w-[260px] h-[320px] rounded-2xl shadow-lg ${certificate.background} cursor-pointer transition-all duration-500`}
-              style={{ boxShadow: '8px 8px 4px rgba(0, 0, 0, 0.25)' }}
-              onClick={() => handleCertificateClick(certificate.id)}
-            >
-              <div className="absolute top-4 left-4 w-8 h-8 bg-background rounded-full flex items-center justify-center">
-                <span className="text-white font-medium">{certificate.id}</span>
-              </div>
-              <div className="h-full flex flex-col items-center justify-center p-6 text-center">
-                <h3 className="text-white text-lg font-roboto font-bold mb-4 mt-4">{certificate.title}</h3>
-                <div className="flex items-center justify-center h-40">
-                  <img
-                    src={certificate.logo}
-                    alt={`Logo de ${certificate.title}`}
-                    className="h-32 w-auto object-contain"
-                  />
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      );
-    } else {
-      // Código exactamente original para escritorio
-      return (
-        <div className="relative w-full h-[500px]">
-          <div className="absolute top-16 left-[350px] -translate-x-1/2 -translate-y-1/2"> {/* Restaurada posición original */}
-            {certificatesData.map((certificate, index) => {
-              const translateX = !isStacked
-                ? index * (cardWidth + gap) - centerOffset + cardWidth / 2
-                : index * 20 - 20;
-
-              const translateY = 0;
-              const rotation = isStacked ? (index * 5 - 5) : 0;
-              const z = isStacked ? certificatesData.length - index : 1;
-
-              return (
-                <div
-                  key={certificate.id}
-                  className={`absolute transition-transform duration-700 ease-in-out w-[260px] h-[320px] rounded-2xl shadow-lg transform ${certificate.background} cursor-pointer`}
-                  style={{
-                    transform: `translate(${translateX}px, ${translateY}px) rotate(${rotation}deg)`,
-                    zIndex: z
-                  }}
-                  onClick={() => handleCertificateClick(certificate.id)}
-                >
-                  <div className="absolute top-4 left-4 w-8 h-8 bg-background rounded-full flex items-center justify-center">
-                    <span className="text-white font-medium">{certificate.id}</span>
-                  </div>
-                  <div className="h-full flex flex-col items-center justify-center p-6 text-center">
-                    <h3 className="text-white text-lg font-roboto font-bold mb-4 mt-4">{certificate.title}</h3>
-                    <div className="flex items-center justify-center h-40">
-                      <img
-                        src={certificate.logo}
-                        alt={`Logo de ${certificate.title}`}
-                        className="h-32 w-auto object-contain"
-                      />
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      );
-    }
+  const cardVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: (i) => ({
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.8, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] },
+    }),
   };
 
   return (
-    <section className="w-full min-h-[calc(100vh-80px)] bg-background py-10 relative">
-      <div className="max-w-6xl mx-auto px-4 mt-28">
-        {isStacked ? (
-          renderAnimatedCertificates()
-        ) : expandedCertificate ? (
-          renderExpandedCertificate()
-        ) : (
-          renderAnimatedCertificates()
-        )}
+    <section className="w-full relative py-20 pb-40">
+      <div className="max-w-6xl mx-auto px-6 lg:px-12">
+        {/* Título de Sección con Estilo Editorial */}
+        <div className="w-full mb-16 relative">
+          <div className="flex items-center gap-6 mb-4">
+             <div className="h-[2px] w-12 bg-accent/60"></div>
+             <span className="text-accent font-mono text-[10px] tracking-[0.4em] uppercase font-bold">Trayectoria</span>
+          </div>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-white uppercase tracking-tight leading-none">
+            Formación <br/> 
+            <span className="text-textSecondary/40">&</span> Logros
+          </h2>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {formationData.map((item, i) => (
+            <motion.div
+              key={item.id}
+              variants={cardVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.1 }}
+              custom={i}
+              className="group relative"
+            >
+              <div className="glass-card rounded-[2.5rem] p-8 h-full flex flex-col transition-all duration-500 hover:border-accent/40 hover:shadow-[0_20px_50px_rgba(0,0,0,0.4)]">
+                
+                <div className="flex justify-between items-start mb-10">
+                  <div className="w-16 h-16 rounded-2xl bg-white p-3 shadow-xl group-hover:scale-110 transition-transform duration-500">
+                     <img
+                       src={item.logo}
+                       alt={item.institution}
+                       className="w-full h-full object-contain"
+                       onError={(e) => { e.target.src = 'https://via.placeholder.com/48?text=Logo'; }}
+                     />
+                  </div>
+                  <span className="px-4 py-1.5 glass-panel rounded-full text-[10px] font-mono font-bold text-gray-500 group-hover:text-accent group-hover:bg-accent/10 transition-all duration-300">
+                    {item.year}
+                  </span>
+                </div>
+
+                <div className="flex-grow mb-8">
+                  <h3 className="text-xl font-black text-white mb-3 group-hover:text-accent transition-colors leading-tight">
+                    {item.institution}
+                  </h3>
+                  <p className="text-gray-400 text-sm leading-relaxed font-medium">
+                    {item.title}
+                  </p>
+                </div>
+
+                {item.credentialUrl && (
+                  <div className="mt-auto pt-6 border-t border-white/5">
+                    <a
+                      href={item.credentialUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 text-[10px] font-mono font-black uppercase tracking-widest text-accent hover:text-white transition-colors"
+                    >
+                      Ver Credencial
+                      <FaExternalLinkAlt size={8} />
+                    </a>
+                  </div>
+                )}
+              </div>
+            </motion.div>
+          ))}
+        </div>
       </div>
     </section>
   );
 };
 
 export default Certificates;
-
-
-
