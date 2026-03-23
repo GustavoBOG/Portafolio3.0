@@ -12,7 +12,7 @@ const Certificates = () => {
       id: 1,
       institution: 'Big School',
       logo: '/images/certificates/bslogo.png',
-      title: 'Desarrollo con IA (Especialización)',
+      title: 'Desarrollo con IA: de 0 a Producción',
       year: '2026',
       credentialUrl: null,
     },
@@ -28,7 +28,7 @@ const Certificates = () => {
       id: 3,
       institution: 'Hack A Boss',
       logo: '/images/certificates/hackaboss.png',
-      title: 'UX/UI Design: Primeros Pasos l',
+      title: 'UX/UI Design: Primeros Pasos ',
       year: '2025',
       credentialUrl: null,
     },
@@ -36,7 +36,7 @@ const Certificates = () => {
       id: 4,
       institution: 'Hack A Boss',
       logo: '/images/certificates/hackaboss.png',
-      title: 'Bootcamp Desarrollador Full Stack l',
+      title: 'Bootcamp Desarrollador Full Stack ',
       year: '2024',
       credentialUrl: null,
     },
@@ -69,19 +69,19 @@ const Certificates = () => {
 
   return (
     <section className="w-full relative py-20 pb-40">
-      {/* Título de Sección con Estilo Editorial */}
-      <div className="w-full mb-20 relative">
-        <div className="flex items-center gap-6 mb-4">
-           <div className="h-[2px] w-12 bg-accent"></div>
-           <span className="text-accent font-mono text-xs tracking-[0.3em] uppercase">Trayectoria</span>
+      <div className="max-w-6xl mx-auto px-6 lg:px-12">
+        {/* Título de Sección con Estilo Editorial */}
+        <div className="w-full mb-16 relative">
+          <div className="flex items-center gap-6 mb-4">
+             <div className="h-[2px] w-12 bg-accent/60"></div>
+             <span className="text-accent font-mono text-[10px] tracking-[0.4em] uppercase font-bold">Trayectoria</span>
+          </div>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-white uppercase tracking-tight leading-none">
+            Formación <br/> 
+            <span className="text-textSecondary/40">&</span> Logros
+          </h2>
         </div>
-        <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-white uppercase tracking-tight">
-          Formación <br/> 
-          <span className="text-textSecondary/40">&</span> Logros
-        </h2>
-      </div>
 
-      <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {formationData.map((item, i) => (
             <motion.div

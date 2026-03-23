@@ -11,14 +11,14 @@ import { FaRegUserCircle } from 'react-icons/fa';
 const AboutMe = () => {
   return (
     <section className="w-full relative py-20 overflow-visible">
-      <div className="max-w-7xl mx-auto px-6 lg:px-12">
+      <div className="max-w-6xl mx-auto px-6 lg:px-12">
         {/* Título de Sección con Estilo Editorial */}
-        <div className="w-full mb-20 relative text-left">
+        <div className="w-full mb-16 relative text-left">
           <div className="flex items-center gap-6 mb-4">
-             <div className="h-[2px] w-12 bg-accent"></div>
-             <span className="text-accent font-mono text-xs tracking-[0.3em] uppercase">Historia</span>
+             <div className="h-[2px] w-12 bg-accent/60"></div>
+             <span className="text-accent font-mono text-[10px] tracking-[0.4em] uppercase font-bold">Historia</span>
           </div>
-          <h2 className="text-4xl md:text-5xl lg:text-7xl font-black text-white uppercase tracking-tighter leading-none">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-white uppercase tracking-tight leading-none">
             Sobre <br/> 
             <span className="text-textSecondary/40">Mí</span>
           </h2>
@@ -27,7 +27,7 @@ const AboutMe = () => {
         <div className="flex flex-col-reverse min-[1177px]:flex-row items-center relative">
           
           {/* Tarjeta de Biografía */}
-          <div className="w-full min-[1177px]:w-3/4 xl:w-7/12 relative z-30 group">
+          <div className="w-full min-[1177px]:w-4/5 xl:w-3/4 relative z-30 group">
             <div className="glass-panel rounded-[3rem] p-10 md:p-14 transition-all duration-700 hover:border-accent/30 hover:shadow-[0_40px_80px_rgba(0,0,0,0.5)] overflow-hidden relative">
                
                {/* Resplandor interno dinámico */}
@@ -67,7 +67,7 @@ const AboutMe = () => {
           </div>
 
           {/* Asset 3D: El Robot - Reposicionado para evitar cortes */}
-          <div className="relative w-full min-[1177px]:w-2/5 flex justify-center min-[1177px]:absolute min-[1177px]:-right-20 min-[1177px]:top-1/2 min-[1177px]:-translate-y-1/2 z-20 pointer-events-none mb-12 min-[1177px]:mb-0">
+          <div className="relative w-full min-[1177px]:w-2/5 flex justify-center min-[1177px]:absolute min-[1177px]:-right-36 min-[1177px]:top-1/2 min-[1177px]:-translate-y-1/2 z-20 pointer-events-none mb-12 min-[1177px]:mb-0">
              {/* Glow de profundidad expansivo */}
              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[140%] h-[140%] bg-accent/5 blur-[160px] rounded-full pointer-events-none" />
              

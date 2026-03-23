@@ -38,16 +38,18 @@ const Skills = () => {
 
   return (
     <section className="w-full relative py-20 overflow-hidden">
-      {/* Título de Sección con Estilo Editorial */}
-      <div className="w-full mb-16 relative">
-        <div className="flex items-center gap-6 mb-4">
-           <div className="h-[2px] w-12 bg-accent"></div>
-           <span className="text-accent font-mono text-xs tracking-[0.3em] uppercase">Tecnologías</span>
+      <div className="max-w-6xl mx-auto px-6 lg:px-12">
+        {/* Título de Sección con Estilo Editorial */}
+        <div className="w-full mb-16 relative">
+          <div className="flex items-center gap-6 mb-4">
+             <div className="h-[2px] w-12 bg-accent/60"></div>
+             <span className="text-accent font-mono text-[10px] tracking-[0.4em] uppercase font-bold">Tecnologías</span>
+          </div>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-white uppercase tracking-tight leading-none">
+            Stack <br/> 
+            <span className="text-textSecondary/40">Técnico</span>
+          </h2>
         </div>
-        <h2 className="text-4xl md:text-5xl font-black text-white uppercase tracking-tight">
-          Stack <br/> 
-          <span className="text-textSecondary/40">Técnico</span>
-        </h2>
       </div>
 
       {/* Contenedor del Marquee con Glassmorphism */}
