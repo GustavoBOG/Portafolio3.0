@@ -3,9 +3,27 @@ export const projects = [
         id: 3,
         slug: "wonderfly",
         title: "WonderFly",
-        description: "Buscador y comparador de vuelos.",
+        description: "Plataforma Full-Stack para búsqueda y comparación de vuelos en tiempo real.",
         fullDescription:
-            "WonderFly es una aplicación web completa para buscar y comparar vuelos en tiempo real. Permite a los usuarios filtrar por precio, duración y escalas, visualizar resultados de forma clara y reservar directamente. El backend está construido con Node.js y Express, mientras que el frontend consume la API mediante React con gestión de estado optimizada.",
+            "WonderFly es una plataforma Full-Stack diseñada para la búsqueda y comparación de vuelos en tiempo real. Este proyecto destaca por integrar servicios externos de alta fidelidad y una gestión de datos robusta, ofreciendo una experiencia de usuario fluida y eficiente.",
+        features: [
+            {
+                title: "Integración de APIs Reales",
+                description: "Conexión asíncrona con Amadeus API para obtener datos de vuelos actualizados, gestionando tiempos de respuesta y filtrado complejo."
+            },
+            {
+                title: "Arquitectura Escalable",
+                description: "Backend construido con Node.js y Express bajo el patrón de controladores, asegurando un código limpio y fácil de mantener."
+            },
+            {
+                title: "Seguridad y Persistencia",
+                description: "Sistema de autenticación de usuarios (JWT) con base de datos MySQL para la gestión segura de perfiles y vuelos favoritos."
+            },
+            {
+                title: "UI/UX Reactiva",
+                description: "Interfaz desarrollada en React con una gestión de estado optimizada, permitiendo búsquedas dinámicas sin recargas innecesarias."
+            }
+        ],
         imageUrl: "/images/plane.png",
         technologies: [
             "HTML5",
@@ -15,6 +33,8 @@ export const projects = [
             "Node.js",
             "Express",
             "MySQL",
+            "Amadeus API",
+            "JWT"
         ],
         githubUrl: "https://github.com/GustavoBOG/planificadorDeViajes",
         pageUrl: "https://planificador-de-viajes.vercel.app/",
@@ -23,10 +43,28 @@ export const projects = [
     {
         id: 4,
         slug: "lalaland-cafe",
-        title: "La La Land Cafe (Rediseño)",
-        description: "Reestructuración integral del sitio web para La La Land Cafe.",
+        title: "La La Land Cafe",
+        description: "Solución digital integral para una cafetería real en Madrid.",
         fullDescription:
-            "Rediseño completo del sitio web para La La Land Cafe, una cafetería con estética cinematográfica. El proyecto involucró análisis de la marca existente, replanteamiento de la arquitectura de información y construcción de una interfaz moderna con Tailwind CSS y React. Se optimizó el rendimiento y la accesibilidad de la página resultante.",
+            "LalaLand Café es una solución digital integral para una cafetería real en Madrid. El proyecto transforma la identidad de marca en una experiencia web de alto rendimiento, optimizando la conversión mediante una carta interactiva y una arquitectura orientada al usuario.",
+        features: [
+            {
+                title: "Navegación Inteligente (ScrollSpy)",
+                description: "Implementé un sistema de menú autogestionado con debouncing y animaciones de easing cúbico, sincronizando la navegación fija con la sección activa en pantalla."
+            },
+            {
+                title: "Arquitectura Modular con React 19",
+                description: "Estructuré el proyecto en +27 componentes organizados por features (Carta, Blog, Club), garantizando un mantenimiento ágil y una escalabilidad profesional."
+            },
+            {
+                title: "Diseño Responsive Dual",
+                description: "Desarrollé layouts diferenciados para móvil y desktop en secciones críticas, utilizando grids dinámicos y acordeones para maximizar la legibilidad en cualquier dispositivo."
+            },
+            {
+                title: "Integración de Ecosistema Digital",
+                description: "Sincronización en tiempo real con Google Reviews, gestión de reservas de catering y conectividad directa con plataformas de Delivery (Uber Eats/Glovo)."
+            }
+        ],
         imageUrl: "/images/mockuplala.png",
         technologies: [
             "HTML5",
@@ -43,12 +81,49 @@ export const projects = [
     {
         id: 5,
         slug: "solrepyma",
-        title: "Solrepyma: Rediseño de Identidad Visual",
-        description: "Rediseño de logotipo y maquetación de plantillas administrativas.",
+        title: "SOLREPYMAN",
+        description: "Identidad y Estandarización Corporativa.",
         fullDescription:
-            "Proyecto de rediseño de identidad visual para Solrepyma, empresa del sector de reparaciones y mantenimiento. Se realizó un análisis de la marca existente, se propusieron nuevas alternativas de logotipo y se desarrollaron plantillas administrativas coherentes con la nueva identidad. Todo el proceso fue documentado y presentado en un brand book completo.",
-        imageUrl: "/images/mockupsolrepy.png",
-        technologies: ["Figma"],
+            "Este proyecto consistió en el rediseño integral de la identidad visual de Solrepyman. El objetivo fue elevar la profesionalidad percibida de la marca y estandarizar todos los puntos de contacto operativos, desde la documentación administrativa hasta la presencia física del equipo.",
+        featuresTitle: "Desafíos y Soluciones de Diseño",
+        features: [
+            {
+                title: "Evolución de Marca (Rebranding)",
+                description: "Actualicé el logotipo hacia una estética más profesional, moderna y legible, garantizando su versatilidad y correcto impacto visual en cualquier formato."
+            },
+            {
+                title: "Sistema de Color y Coherencia",
+                description: "Definí una paleta corporativa estricta para solidificar la identidad de marca, asegurando uniformidad visual en toda la comunicación."
+            },
+            {
+                title: "Normalización Documental",
+                description: "Diseñé una suite administrativa consistente (Albaranes, Presupuestos, Facturas, Pedidos) para eliminar disparidades, proyectar profesionalismo y facilitar la administración."
+            },
+            {
+                title: "Operatividad y Uniformidad",
+                description: "Creé el sello corporativo oficial para validaciones operativas y un mockup de uniformes para visualizar la aplicación de marca en el entorno laboral de la empresa."
+            }
+        ],
+        deliverables: [
+            {
+                title: "Identidad",
+                description: "Logotipo renovado, Sello corporativo y Manual de color (Charcoal Blue, Black Ink, Pure White)."
+            },
+            {
+                title: "Documentación",
+                description: "Modelos de Factura, Albarán, Presupuesto y Pedido con diseño unificado y QR de información."
+            },
+            {
+                title: "Herramientas Operativas",
+                description: "Estandarización y optimización de tablas Excel para la gestión de inventario y caja chica."
+            },
+            {
+                title: "Visualización",
+                description: "Mockup de uniformes para la representación visual de la marca."
+            }
+        ],
+        imageUrl: "/images/logos.jpg",
+        technologies: ["Figma", "Excel"],
         githubUrl: "#",
         pageUrl: "#",
         categories: ["Diseño"],
@@ -56,13 +131,49 @@ export const projects = [
     {
         id: 6,
         slug: "artesana",
-        title: "ArtesAna: Creación de Logo e Identidad Visual",
-        description:
-            "Diseño de identidad visual, creación de logotipo y paleta de colores corporativa para la marca.",
+        title: "ARTESANA",
+        description: "Conceptualización e Identidad de Marca.",
         fullDescription:
-            "Creación desde cero de la identidad visual para ArtesAna, una marca de productos artesanales. El proyecto incluyó investigación del mercado objetivo, definición de valores de marca, diseño de logotipo en múltiples variantes, selección de tipografía corporativa y construcción de una paleta de colores que refleja la esencia artesanal y natural de la marca.",
-        imageUrl: "/images/solrepyma.png", // Reemplaza con la imagen real del proyecto ArtesAna
-        technologies: ["Figma"],
+            "Este proyecto abarcó el desarrollo integral de la identidad visual para Artesana, una marca dedicada a productos hechos a mano con el corazón. El objetivo fue crear una narrativa de marca coherente que reflejara la naturaleza orgánica, delicada y única de sus creaciones, estableciendo una conexión emocional y táctil con el consumidor.",
+        featuresTitle: "Desafíos y Soluciones de Diseño",
+        features: [
+            {
+                title: "Creación y Definición de Naming",
+                description: 'Desarrollé el nombre "Artesana" como una propuesta directa y evocadora, que encapsula la esencia de la labor manual, la autenticidad y el cuidado en cada detalle.'
+            },
+            {
+                title: "Diseño de Logotipo Conceptual",
+                description: "Creé un logotipo que fusiona elementos botánicos (la rama de eucalipto) con trazos abstractos de hilo y costura, simbolizando la naturaleza y el proceso de creación manual en una composición delicada y equilibrada."
+            },
+            {
+                title: "Estrategia de Paleta de Colores",
+                description: "Implementé una paleta cromática orgánica (Marrón Artesano, Oro Hilo, Crema Natural, Verde Eucalipto) para transmitir calidez, naturalidad, elegancia y la autenticidad de los materiales utilizados."
+            },
+            {
+                title: "Creación de Patrón de Marca",
+                description: "Diseñé un patrón de marca dinámico y versátil, combinando variaciones del isotipo y monogramas, para su aplicación en packaging, revestimientos y soportes digitales, fortaleciendo la consistencia visual."
+            },
+            {
+                title: "Visualización de Producto (Mockups)",
+                description: "Entregué una suite de mockups de alta fidelidad para visualizar la aplicación de marca en productos reales, incluyendo el packaging de tela, rollos de pegatinas y tarjetas de visita, demostrando la tactilidad y el impacto visual de la identidad."
+            }
+        ],
+        deliverables: [
+            {
+                title: "Identidad",
+                description: "Naming conceptual, Logotipo unificado, Paleta cromática corporativa y Patrón de marca."
+            },
+            {
+                title: "Soportes Visuales",
+                description: "Mockups de aplicación en packaging de tela, etiquetas en rollo y papelería corporativa."
+            },
+            {
+                title: "Guía de Estilo",
+                description: "Definición de colores corporativos con valores HEX."
+            }
+        ],
+        imageUrl: "/images/artes_ana_logo.png",
+        technologies: ["Illustrator", "Figma", "Photoshop"],
         githubUrl: "#",
         pageUrl: "#",
         categories: ["Diseño"],

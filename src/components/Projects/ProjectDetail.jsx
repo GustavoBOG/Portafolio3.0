@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { projects } from "../../data/projectsData";
@@ -79,9 +79,57 @@ const ProjectDetail = () => {
                     <h1 className="text-4xl md:text-6xl font-black text-white uppercase tracking-tight leading-[0.9] mb-6">
                        {project.title}
                     </h1>
-                    <p className="text-gray-400 text-lg leading-relaxed font-light">
+                    <p className="text-gray-300 text-lg md:text-xl leading-relaxed font-light">
                        {project.fullDescription || project.description}
                     </p>
+
+                    {/* Nueva sección: Desafíos y Soluciones */}
+                    {project.features && (
+                       <div className="space-y-6 pt-4">
+                          <h4 className="text-[10px] sm:text-xs font-mono font-black text-gray-400 uppercase tracking-[0.3em]">
+                             {project.featuresTitle || "Desafíos y Soluciones Técnicas"}
+                          </h4>
+                          <div className="grid grid-cols-1 gap-8">
+                             {project.features.map((feature, i) => (
+                                <div key={i} className="flex gap-5 group/item">
+                                   <div className="mt-2 w-2 h-2 rounded-full bg-accent shrink-0 group-hover/item:scale-150 transition-transform duration-300 shadow-[0_0_10px_rgba(224,78,11,0.5)]" />
+                                   <div className="space-y-2">
+                                      <p className="text-white font-bold text-base md:text-lg tracking-tight">
+                                         {feature.title}
+                                      </p>
+                                      <p className="text-gray-300 text-sm md:text-base leading-relaxed font-light">
+                                         {feature.description}
+                                      </p>
+                                   </div>
+                                </div>
+                             ))}
+                          </div>
+                       </div>
+                    )}
+
+                    {/* Nueva sección: Entregables (Opcional) */}
+                    {project.deliverables && (
+                       <div className="space-y-6 pt-6 border-t border-white/10 mt-6">
+                          <h4 className="text-[10px] sm:text-xs font-mono font-black text-gray-400 uppercase tracking-[0.3em] pt-4">
+                             Entregables Clave
+                          </h4>
+                          <div className="grid grid-cols-1 gap-8">
+                             {project.deliverables.map((item, i) => (
+                                <div key={i} className="flex gap-5 group/item">
+                                   <div className="mt-2 w-2 h-2 rounded-full bg-accent shrink-0 group-hover/item:scale-150 transition-transform duration-300 shadow-[0_0_10px_rgba(224,78,11,0.5)]" />
+                                   <div className="space-y-2">
+                                      <p className="text-white font-bold text-base md:text-lg tracking-tight">
+                                         {item.title}
+                                      </p>
+                                      <p className="text-gray-300 text-sm md:text-base leading-relaxed font-light">
+                                         {item.description}
+                                      </p>
+                                   </div>
+                                </div>
+                             ))}
+                          </div>
+                       </div>
+                    )}
                  </div>
 
                  <div className="space-y-4">
@@ -115,15 +163,16 @@ const ProjectDetail = () => {
 
               {/* Contenido Visual */}
               <div className="lg:col-span-7 space-y-8">
-                 <div className="relative rounded-[2.5rem] overflow-hidden border border-white/5 shadow-2xl">
-                    <div className="absolute inset-0 bg-gradient-to-t from-background/20 to-transparent pointer-events-none" />
-                    <img 
-                      src={project.imageUrl} 
-                      alt={project.title} 
-                      className="w-full h-auto object-cover"
-                    />
+                 <div className="relative p-[2px] rounded-[2.5rem] bg-orange-gradient shadow-[0_20px_50px_rgba(224,78,11,0.3)]">
+                    <div className="relative rounded-[2.5rem] overflow-hidden bg-background">
+                       <div className="absolute inset-0 bg-gradient-to-t from-background/20 to-transparent pointer-events-none" />
+                       <img 
+                         src={project.imageUrl} 
+                         alt={project.title} 
+                         className="w-full h-auto object-cover"
+                       />
+                    </div>
                  </div>
-                 
               </div>
 
            </div>

@@ -10,6 +10,12 @@
     scroll-behavior: smooth;
     overflow-x: hidden;
   }
+
+  .no-scroll {
+    overflow: hidden !important;
+    touch-action: none;
+    -ms-touch-action: none;
+  }
   body {
     @apply font-sans antialiased text-text bg-background tracking-tight;
     background-image:

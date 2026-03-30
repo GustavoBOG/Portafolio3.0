@@ -34,8 +34,24 @@ const LoadingFallback = () => (
  */
 function MainPortfolio() {
   const location = useLocation();
-  // We no longer need sessionStorage since MainPortfolio stays mounted
-  // when navigating to /projects/:slug.
+
+  // Controlar el scroll de la página cuando hay un proyecto abierto
+  useEffect(() => {
+    const isProjectOpen = location.pathname.includes("/projects/");
+    
+    if (isProjectOpen) {
+      document.body.classList.add("no-scroll");
+      document.documentElement.classList.add("no-scroll");
+    } else {
+      document.body.classList.remove("no-scroll");
+      document.documentElement.classList.remove("no-scroll");
+    }
+
+    return () => {
+      document.body.classList.remove("no-scroll");
+      document.documentElement.classList.remove("no-scroll");
+    };
+  }, [location.pathname]);
 
   return (
     <>
