@@ -76,16 +76,31 @@ const ProjectDetail = () => {
               {/* Información (Sticky en Desktop) */}
               <div className="lg:col-span-5 lg:sticky lg:top-32 space-y-10">
                  <div>
-                    <h1 className="text-4xl md:text-6xl font-black text-white uppercase tracking-tight leading-[0.9] mb-6">
+                    <h1 className="text-4xl md:text-6xl font-black text-white uppercase tracking-tight leading-[0.9] mb-8 lg:mb-6">
                        {project.title}
                     </h1>
+
+                    {/* Contenido Visual (Visible SOLO en Móvil - debajo del título) */}
+                    <div className="block lg:hidden mb-10">
+                       <div className="relative p-[2px] rounded-3xl bg-orange-gradient shadow-[0_10px_30px_rgba(224,78,11,0.2)]">
+                          <div className="relative rounded-3xl overflow-hidden bg-background">
+                             <div className="absolute inset-0 bg-gradient-to-t from-background/20 to-transparent pointer-events-none" />
+                             <img 
+                               src={project.imageUrl} 
+                               alt={project.title} 
+                               className="w-full h-auto object-cover"
+                             />
+                          </div>
+                       </div>
+                    </div>
+
                     <p className="text-gray-300 text-lg md:text-xl leading-relaxed font-light">
                        {project.fullDescription || project.description}
                     </p>
 
                     {/* Nueva sección: Desafíos y Soluciones */}
                     {project.features && (
-                       <div className="space-y-6 pt-4">
+                       <div className="space-y-6 pt-6">
                           <h4 className="text-[10px] sm:text-xs font-mono font-black text-gray-400 uppercase tracking-[0.3em]">
                              {project.featuresTitle || "Desafíos y Soluciones Técnicas"}
                           </h4>
@@ -132,7 +147,7 @@ const ProjectDetail = () => {
                     )}
                  </div>
 
-                 <div className="space-y-4">
+                 <div className="space-y-4 pt-4 border-t border-white/5 lg:border-t-0 lg:pt-0">
                     <h4 className="text-[10px] font-mono font-black text-gray-500 uppercase tracking-[0.3em]">Tecnologías</h4>
                     <div className="flex flex-wrap gap-2">
                        {project.technologies.map((tech, i) => (
@@ -161,8 +176,8 @@ const ProjectDetail = () => {
                  </div>
               </div>
 
-              {/* Contenido Visual */}
-              <div className="lg:col-span-7 space-y-8">
+              {/* Contenido Visual (Visible SOLO en Desktop - columna derecha) */}
+              <div className="hidden lg:block lg:col-span-7 space-y-8">
                  <div className="relative p-[2px] rounded-[2.5rem] bg-orange-gradient shadow-[0_20px_50px_rgba(224,78,11,0.3)]">
                     <div className="relative rounded-[2.5rem] overflow-hidden bg-background">
                        <div className="absolute inset-0 bg-gradient-to-t from-background/20 to-transparent pointer-events-none" />
