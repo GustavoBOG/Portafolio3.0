@@ -145,10 +145,14 @@ const Header = () => {
             </ul>
           </nav>
 
-          {/* Botón CTA Header o Redes (Opcional) */}
+          {/* Botón CTA Header - Descargar CV */}
           <div className="hidden md:block">
-             <a href="#contacto" className="px-5 py-2 rounded-full border border-accent/30 text-accent text-[10px] font-bold uppercase tracking-widest hover:bg-accent hover:text-white transition-all duration-300">
-                Contacto
+             <a 
+               href="/cv/cv2.0.png" 
+               download="CV_Gustavo_Bolivar.png"
+               className="px-5 py-2 rounded-full border border-accent/30 text-accent text-[10px] font-bold uppercase tracking-widest hover:bg-accent hover:text-white transition-all duration-300"
+             >
+                Descargar CV
              </a>
           </div>
 
@@ -202,6 +206,17 @@ const Header = () => {
                 </li>
               ))}
             </ul>
+            <div className="mt-8">
+              <a 
+                href="/cv/cv2.0.png" 
+                download="CV_Gustavo_Bolivar.png"
+                onClick={toggleMenu}
+                className="w-full inline-block px-6 py-4 rounded-xl border border-accent/30 text-accent text-center text-xs font-bold uppercase tracking-widest hover:bg-accent hover:text-white transition-all duration-300"
+              >
+                Descargar CV
+              </a>
+            </div>
+
             <div className="mt-auto pt-8 border-t border-white/5">
                 <p className="text-[10px] font-mono text-gray-500 uppercase tracking-widest leading-relaxed">
                   Basado en Madrid, <br/>disponible para proyectos globales.
