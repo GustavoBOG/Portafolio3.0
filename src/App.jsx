@@ -5,6 +5,7 @@ import { AnimatePresence } from "framer-motion";
 // Importaciones directas para componentes críticos (Above the fold)
 import Header from "./components/header/Header";
 import Home from "./components/home/Home";
+import Home2 from "./components/home/Home2"; // Nuevo hero alternativo para pruebas
 import Projects from "./components/Projects/Projects";
 import ProjectDetail from "./components/Projects/ProjectDetail";
 import Footer from "./components/footer/Footer";
@@ -63,7 +64,9 @@ function MainPortfolio() {
 
         {/* Sección: Inicio */}
         <section id="inicio">
-          <Home />
+          {/* COMENTA <Home /> Y DESCOMENTA <Home2 /> PARA PROBAR EL NUEVO HERO */}
+          {/* <Home /> */}
+          <Home2 />
         </section>
 
         {/* Sección: Proyectos y Experiencia */}
