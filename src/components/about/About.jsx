@@ -1,108 +1,86 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { FaCode } from 'react-icons/fa';
-import { LiaCertificateSolid } from 'react-icons/lia';
-import { projects } from '../../data/projectsData';
-import { certificates } from '../../data/certificatesData';
+import { motion } from "framer-motion";
+import { FaRegUserCircle } from 'react-icons/fa';
 
+/**
+ * Componente AboutMe
+ * Esta sección renderiza la información de tu perfil personal de una manera
+ * estilizada visualmente (efectos de difuminado y tarjetas con text-gradients), 
+ * superponiendo tu contenido sobre una mascota de render 3D (Robot).
+ */
 const AboutMe = () => {
   return (
-    <section className="w-full min-h-[calc(100vh-80px)] bg-background py-16 relative">
-      <div className="container mx-auto px-4">
-
-
-        {/* Contenido principal */}
-        <div className="flex flex-col lg:flex-row items-center lg:items-start justify-between relative">
-          {/* Columna izquierda - Texto */}
-          <div className="lg:w-8/12 pr-0 lg:pr-12 z-10">
-            <div className="lg:max-w-full">
-              <p className="text-text text-h3 lg:text-h1 mb-8 leading-relaxed ">
-                Hola, soy Gustavo Bolívar.
-              </p>
-              <p className="text-text text-h5 mb-2 leading-relaxed">
-                Mi camino no empezó en la programación, pero cuando descubrí lo que se siente al construir algo útil desde cero, supe que no había vuelta atrás.
-              </p>
-              <p className="text-text text-h5 mb-2 leading-relaxed">
-                Decidí cambiar el rumbo de mi carrera para dedicarme a lo que de verdad me divierte: <strong>buscar soluciones reales a través del código.</strong>
-              </p>
-              <p className="text-text text-h5 mb-2 leading-relaxed">
-                No me conformo con que algo simplemente funcione; me gusta que tenga sentido y que aporte valor.
-              </p>
-              <p className="text-text text-h5 mb-2 leading-relaxed">
-                Aunque no soy diseñador de formación, soy de los que se fijan en los detalles y disfrutan creando interfaces que sean fáciles y agradables de usar.
-              </p>
-              <p className="text-text text-h3 lg:text-h2 mb-8 leading-relaxed">
-                ¿Mi filosofía?
-              </p>
-              <p className="text-text text-h5 leading-relaxed mb-8">
-                Muy simple: <strong>Honestidad ante todo, aprender algo nuevo cada día y ponerle ganas a cada proyecto que construyo.</strong>
-              </p>
-            </div>
+    <section className="w-full relative py-20 overflow-visible">
+      <div className="max-w-6xl mx-auto px-6 lg:px-12">
+        {/* Título de Sección con Estilo Editorial */}
+        <div className="w-full mb-16 relative text-left">
+          <div className="flex items-center gap-6 mb-4">
+             <div className="h-[2px] w-12 bg-accent/60"></div>
+             <span className="text-accent font-mono text-[10px] tracking-[0.4em] uppercase font-bold">Historia</span>
           </div>
-
-          {/* Columna derecha - Imagen (posición absoluta) */}
-          <div className="absolute right-0 lg:right-4 top-0 lg:w-5/12 h-full z-0">
-            <div className="relative w-full h-full">
-              <img
-                src="/images/robot.png"
-                alt="Robot"
-                className="relative w-full max-w-lg object-contain 
-             bottom-[-750px] sm:bottom-[-40px] md:bottom-[-60px] lg:bottom-10 
-             left-[-30px] sm:left-[80px] md:left-[120px] lg:left-[150px]"
-              />
-            </div>
-          </div>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-white uppercase tracking-tight leading-none">
+            Sobre <br/> 
+            <span className="text-textSecondary/40">Mí</span>
+          </h2>
         </div>
 
-        {/* Tarjetas - Centradas debajo */}
-        <div className="w-full flex justify-center mt-64 md:mt-12 z-20 relative">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-16 w-full max-w-5xl">
-            {/* Tarjeta Proyectos - Con Link y efecto hover */}
-            <Link to="/projects" className="block">
-              <div className="bg-card rounded-2xl relative h-48 min-w-[320px] md:w-[500px] cursor-pointer transform transition-transform duration-300 hover:scale-105">
-                <div
-                  className="absolute w-full h-full top-0 left-0 rounded-2xl"
-                  style={{
-                    background: "linear-gradient(30deg, #1C4470 35%, #2963A3 50%, #1C4470 75%)",
-                    boxShadow: "13px 13px 4px 4px rgba(0, 0, 0, 0.25)"
-                  }}
-                ></div>
-                <div className="relative z-10 p-6 h-full flex flex-col justify-center">
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="text-text text-h4 bg-primario rounded-3xl bg-opacity-50 px-2 py-2">
-                      <FaCode />
-                    </span>
-                    <span className="text-text text-h2">{projects.length}</span>
-                  </div>
-                  <h3 className="text-text text-h3 font-roboto mb-1">Proyectos</h3>
-                  <p className="text-text text-h5">ver portafolio</p>
-                </div>
-              </div>
-            </Link>
+        <div className="flex flex-col-reverse min-[1177px]:flex-row items-center relative">
+          
+          {/* Tarjeta de Biografía */}
+          <div className="w-full min-[1177px]:w-4/5 xl:w-3/4 relative z-30 group">
+            <div className="glass-panel rounded-[3rem] p-10 md:p-14 transition-all duration-700 hover:border-accent/30 hover:shadow-[0_40px_80px_rgba(0,0,0,0.5)] overflow-hidden relative">
+               
+               {/* Resplandor interno dinámico */}
+               <div className="absolute top-0 right-0 w-64 h-64 bg-accent/5 blur-[100px] rounded-full group-hover:bg-accent/10 transition-colors duration-700" />
 
-            {/* Tarjeta Certificados - Con Link y efecto hover */}
-            <Link to="/certificates" className="block">
-              <div className="bg-card rounded-2xl relative h-48 min-w-[320px] md:w-[500px] cursor-pointer transform transition-transform duration-300 hover:scale-105">
-                <div
-                  className="absolute w-full h-full top-0 left-0 rounded-2xl"
-                  style={{
-                    background: "linear-gradient(30deg, #1C4470 35%, #2963A3 50%, #1C4470 75%)",
-                    boxShadow: "13px 13px 4px 4px rgba(0, 0, 0, 0.25)"
-                  }}
-                ></div>
-                <div className="relative z-10 p-6 h-full flex flex-col justify-center">
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="text-text text-h4 bg-primario rounded-3xl bg-opacity-50 px-2 py-2">
-                      <LiaCertificateSolid />
-                    </span>
-                    <span className="text-text text-h2">{certificates.length}</span>
-                  </div>
-                  <h3 className="text-text text-h3 font-roboto mb-1">Certificados</h3>
-                  <p className="text-text text-h5">ver logros</p>
-                </div>
-              </div>
-            </Link>
+               <h3 className="text-3xl md:text-4xl font-black mb-10 leading-tight">
+                 Hola, soy <span className="text-gradient-accent">Gustavo Bolívar.</span>
+               </h3>
+              
+               <div className="space-y-6 text-gray-400 text-base md:text-lg leading-relaxed font-light">
+                 <p>
+                   Soy un desarrollador <strong className="text-white font-bold italic">Full-Stack</strong> con alma de diseñador. Mi enfoque no es solo escribir código, sino esculpir experiencias digitales que generen impacto.
+                 </p>
+                 <p>
+                   Me especializo en ecosistemas modernos de <span className="text-white">JavaScript</span>, donde fusiono la precisión técnica con una estética visual de vanguardia. Mi objetivo es que cada interfaz cuente una historia coherente y memorable.
+                 </p>
+                 
+                 <div className="pt-10 mt-10 border-t border-white/5">
+                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      {[
+                        "Inteligencia Artificial aplicada",
+                        "Arquitectura de Interfaces",
+                        "Obsesión por el detalle",
+                        "Metodologías Ágiles",
+                      ].map((skill, i) => (
+                        <div key={i} className="flex items-center gap-3">
+                           <div className="w-5 h-5 rounded-lg glass-panel flex items-center justify-center">
+                              <div className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse"></div>
+                           </div>
+                           <span className="text-sm font-bold tracking-wide text-gray-300 uppercase">{skill}</span>
+                        </div>
+                      ))}
+                   </div>
+                 </div>
+               </div>
+            </div>
           </div>
+
+          {/* Asset 3D: El Robot - Reposicionado para evitar cortes */}
+          <div className="relative w-full min-[1177px]:w-2/5 flex justify-center min-[1177px]:absolute min-[1177px]:-right-36 min-[1177px]:top-1/2 min-[1177px]:-translate-y-1/2 z-20 pointer-events-none mb-12 min-[1177px]:mb-0">
+             {/* Glow de profundidad expansivo */}
+             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[140%] h-[140%] bg-accent/5 blur-[160px] rounded-full pointer-events-none" />
+             
+             <motion.img
+               initial={{ opacity: 0, x: 100 }}
+               whileInView={{ opacity: 1, x: 0 }}
+               transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
+               src="/images/robot2.png"
+               alt="Robot 3D"
+               className="w-full h-auto max-w-[500px] drop-shadow-[0_30px_60px_rgba(0,0,0,0.6)] animate-float"
+             />
+          </div>
+
         </div>
       </div>
     </section>
